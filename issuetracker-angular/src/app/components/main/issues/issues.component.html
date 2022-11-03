@@ -1,0 +1,60 @@
+<div class="user-container">
+  <div class="column">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">Unassign issues</h6>
+      </div>
+    </div>
+    <!-- unassign ticket-->
+    <div class="ticket-container">
+      <div *ngFor="let ticket of tickets">
+        <div class="card" *ngIf="ticket.assignedTo == ''">
+          <div class="card-body">
+            <h6 class="card-title">
+              {{ ticket.ticketNumber }}
+            </h6>
+            <p class="card-subtitle mb-2 text-muted">
+              {{ ticket.subject }}
+            </p>
+            <div class="text-end">
+              <p class="card-subtitle text-muted">
+                <a routerLink="/issues/{{ ticket.ticketId }}">View</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- users -->
+  <div class="column" *ngFor="let user of users">
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-title">{{ user.firstName + " " + user.lastName }}</h6>
+      </div>
+    </div>
+    <!-- assigned ticket -->
+    <div class="ticket-container">
+      <div *ngFor="let ticket of tickets">
+        <div
+          class="card"
+          *ngIf="ticket.assignedTo == user.firstName + ' ' + user.lastName"
+        >
+          <div class="card-body">
+            <h6 class="card-title">
+              {{ ticket.ticketNumber }}
+            </h6>
+            <p class="card-subtitle mb-2 text-muted">
+              {{ ticket.subject }}
+            </p>
+            <div class="text-end">
+              <p class="card-subtitle text-muted">
+                <a routerLink="/issues/{{ ticket.ticketId }}">View</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

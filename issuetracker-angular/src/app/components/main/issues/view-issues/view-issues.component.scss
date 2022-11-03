@@ -1,0 +1,16 @@
+tr {
+  display: flex;
+}
+.col-4 {
+  border-right: 2px solid black;
+}
+.card {
+  margin-top: 2rem;
+  margin: 2rem;
+  min-width: 400px;
+}
+.actions {
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
+}

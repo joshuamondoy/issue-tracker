@@ -1,0 +1,95 @@
+<form #formValues="ngForm" (ngSubmit)="onSubmit(formValues)">
+  <div class="card">
+    <div class="card-body">
+      <table class="table">
+        <div class="actions">
+          <h5 class="me-auto">
+            {{ ticketNumber }}
+          </h5>
+          <button class="btn btn-primary btn-sm" type="submit">Update</button>
+          <button class="btn btn-success btn-sm">Close ticket</button>
+        </div>
+        <tbody>
+          <tr>
+            <div class="col-4">
+              <label for="">Subject:</label>
+            </div>
+            <div class="col-8">
+              <td *ngIf="!editMode">{{ subject }}</td>
+              <div *ngIf="editMode">
+                <input
+                  type="text"
+                  class="form-control form-control-sm"
+                  max-width="8px"
+                  name="subject"
+                  ngModel
+                />
+              </div>
+            </div>
+          </tr>
+          <tr>
+            <div class="col-4">
+              <label for="">Description:</label>
+            </div>
+            <div class="col-8">
+              <td *ngIf="!editMode">{{ description }}</td>
+              <div *ngIf="editMode" class="form-floating">
+                <textarea
+                  id="floatingTextarea"
+                  class="form-control form-control-sm"
+                  name="description"
+                  ngModel
+                ></textarea>
+              </div>
+            </div>
+          </tr>
+          <tr>
+            <div class="col-4">
+              <label for="">Date created:</label>
+            </div>
+            <div class="col-8">
+              <td>{{ dateCreated }}</td>
+            </div>
+          </tr>
+          <tr>
+            <div class="col-4">
+              <label for="">Opened by:</label>
+            </div>
+            <div class="col-8">
+              <td>{{ openedBy }}</td>
+            </div>
+          </tr>
+          <tr>
+            <div class="col-4">
+              <label for="">Assigned to:</label>
+            </div>
+            <div class="col-8">
+              <td *ngIf="!editMode">{{ assignedTo }}</td>
+              <div *ngIf="editMode">
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  name="assignedTo"
+                  ngModel
+                >
+                  <option value=""></option>
+                  <option *ngFor="let user of users">
+                    {{ user.firstName + " " + user.lastName }}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </tr>
+          <tr>
+            <div class="col-4">
+              <label for="">Status:</label>
+            </div>
+            <div class="col-8">
+              <td>{{ status }}</td>
+            </div>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,136 @@
+<nav class="navbar bg-light fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><strong>Issue Tracker</strong></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel"
+    >
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#"
+              >Open issues</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Closed issues</a>
+          </li>
+          <li class="nav-item">
+            <!-- trigger modal -->
+            <a
+              class="nav-link"
+              href="#"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+              >Create new</a
+            >
+          </li>
+        </ul>
+        <form class="d-flex mt-3" role="search">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Modal -->
+<form #formValues="ngForm" (ngSubmit)="onSubmit(formValues)">
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            Create new issue
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <label>Subject:</label>
+          <input
+            type="text"
+            class="form-control form control-sm"
+            name="subject"
+            ngModel
+            required
+          />
+
+          <label>Description:</label>
+          <input
+            type="text"
+            class="form-control form control-sm"
+            name="description"
+            ngModel
+            required
+          />
+
+          <label>Assigned to:</label>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            name="assignedTo"
+            ngModel
+          >
+            <option value=""></option>
+            <option *ngFor="let user of users">
+              {{ user.firstName + " " + user.lastName }}
+            </option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!formValues.form.valid"
+          >
+            Submit
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
