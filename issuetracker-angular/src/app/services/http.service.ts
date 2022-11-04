@@ -22,11 +22,7 @@ export class HttpService {
   }
 
   getTickets(): Observable<Ticket[]> {
-    return this.httpClient.get<Ticket[]>(this.url + '/tickets').pipe(
-      tap(() => {
-        this._refresh$.next();
-      })
-    );
+    return this.httpClient.get<Ticket[]>(this.url + '/tickets');
   }
 
   getTicket(ticketId: number): Observable<Ticket> {

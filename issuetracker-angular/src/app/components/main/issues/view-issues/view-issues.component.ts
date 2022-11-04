@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Ticket } from 'src/app/models/ticket.model';
@@ -11,7 +11,7 @@ import { HttpService } from 'src/app/services/http.service';
   styleUrls: ['./view-issues.component.scss'],
 })
 export class ViewIssuesComponent implements OnInit {
-  ticket!: Ticket;
+  dateNow = new Date().toISOString().split('T')[0];
   ticketId!: number;
   ticketNumber!: string;
   subject!: string;
@@ -22,9 +22,10 @@ export class ViewIssuesComponent implements OnInit {
   status!: any;
   dateClosed!: string;
   closedBy!: string;
-  resolution!: string;
+  @ViewChild('resolution') resolution!: string;
   users!: User[];
   editMode: boolean = false;
+  closeMode: boolean = false;
   constructor(
     private httpService: HttpService,
     private activatedRoute: ActivatedRoute
@@ -58,16 +59,24 @@ export class ViewIssuesComponent implements OnInit {
     });
   }
 
-  onSubmit(formValues: NgForm) {
+  toggleUpdate() {
     this.editMode = !this.editMode;
+  }
+  cancelUpdate() {
+    this.editMode = !this.editMode;
+  }
+  cancelClose() {
+    this.closeMode = !this.closeMode;
+  }
+  onUpdateTicket(formValues: NgForm) {
     const value = formValues.value;
-
-    this.ticket = new Ticket(
+    this.editMode = !this.editMode;
+    let ticket = new Ticket(
       this.ticketId,
       this.ticketNumber,
       value.subject,
       value.description,
-      this.dateCreated,
+      this.dateNow,
       this.openedBy,
       value.assignedTo,
       'Open',
@@ -75,6 +84,26 @@ export class ViewIssuesComponent implements OnInit {
       '',
       ''
     );
-    this.httpService.updateTicket(this.ticketId, this.ticket).subscribe();
+    this.httpService.updateTicket(this.ticketId, ticket).subscribe();
+  }
+  toggleClose() {
+    this.closeMode = !this.closeMode;
+  }
+  onCloseTicket() {
+    this.closeMode = !this.closeMode;
+    let ticket = new Ticket(
+      this.ticketId,
+      this.ticketNumber,
+      this.subject,
+      this.description,
+      this.dateNow,
+      this.openedBy,
+      this.assignedTo,
+      'Closed',
+      this.dateNow,
+      'Joshua',
+      this.resolution
+    );
+    this.httpService.updateTicket(this.ticketId, ticket).subscribe();
   }
 }
