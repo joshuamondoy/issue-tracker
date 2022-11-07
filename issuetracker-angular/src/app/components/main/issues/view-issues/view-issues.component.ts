@@ -70,40 +70,41 @@ export class ViewIssuesComponent implements OnInit {
   }
   onUpdateTicket(formValues: NgForm) {
     const value = formValues.value;
-    this.editMode = !this.editMode;
-    let ticket = new Ticket(
-      this.ticketId,
-      this.ticketNumber,
-      value.subject,
-      value.description,
-      this.dateNow,
-      this.openedBy,
-      value.assignedTo,
-      'Open',
-      '',
-      '',
-      ''
-    );
-    this.httpService.updateTicket(this.ticketId, ticket).subscribe();
+    if (this.editMode) {
+      this.editMode = !this.editMode;
+      let ticket = new Ticket(
+        this.ticketId,
+        this.ticketNumber,
+        value.subject,
+        value.description,
+        this.dateNow,
+        this.openedBy,
+        value.assignedTo,
+        'Open',
+        '',
+        '',
+        ''
+      );
+      this.httpService.updateTicket(this.ticketId, ticket).subscribe();
+    } else if (this.closeMode) {
+      this.closeMode = !this.closeMode;
+      let ticket = new Ticket(
+        this.ticketId,
+        this.ticketNumber,
+        this.subject,
+        this.description,
+        this.dateNow,
+        this.openedBy,
+        this.assignedTo,
+        'Closed',
+        this.dateNow,
+        'Joshua',
+        value.resolution
+      );
+      this.httpService.updateTicket(this.ticketId, ticket).subscribe();
+    }
   }
   toggleClose() {
     this.closeMode = !this.closeMode;
-  }
-  onCloseTicket() {
-    this.closeMode = !this.closeMode;
-    let ticket = new Ticket(
-      this.ticketId,
-      this.ticketNumber,
-      this.subject,
-      this.description,
-      this.dateNow,
-      this.openedBy,
-      this.assignedTo,
-      'Closed',
-      this.dateNow,
-      'Joshua',
-      this.resolution
-    );
-    this.httpService.updateTicket(this.ticketId, ticket).subscribe();
   }
 }

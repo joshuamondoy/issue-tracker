@@ -16,11 +16,10 @@
             Resolve ticket
           </button>
           <button
-            [disabled]="formValues.form.valid"
+            [disabled]="!formValues.form.valid"
             *ngIf="closeMode"
             class="btn btn-success btn-sm"
-            type="button"
-            (click)="onCloseTicket()"
+            type="submit"
           >
             Close ticket
           </button>
@@ -131,13 +130,12 @@
             <div class="col-8">
               <div class="form-floating">
                 <textarea
+                  minlength="15"
                   required
                   id="floatingTextarea"
                   name="resolution"
                   ngModel
                   class="form-control form-control-sm"
-                  [(ngModel)]="resolution"
-                  [ngModelOptions]="{ standalone: true }"
                 ></textarea>
               </div>
             </div>
