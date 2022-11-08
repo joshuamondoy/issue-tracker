@@ -52,4 +52,12 @@ export class HttpService {
       })
     );
   }
+
+  deleteTicket(id: number) {
+    return this.httpClient.delete(this.url + '/tickets/' + id).pipe(
+      tap(() => {
+        this.refresh$.next();
+      })
+    );
+  }
 }

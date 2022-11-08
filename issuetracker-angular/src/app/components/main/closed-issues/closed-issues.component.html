@@ -12,6 +12,7 @@
         <th>Date closed</th>
         <th>Closed by</th>
         <th>Resolution</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -26,6 +27,17 @@
         <td>{{ ticket.dateClosed }}</td>
         <td>{{ ticket.closedBy }}</td>
         <td>{{ ticket.resolution }}</td>
+        <td>
+          <div class="actions">
+            <button (click)="reopenTicket(ticket.ticketId)">
+              <fa-icon [icon]="faRotateLeft"></fa-icon> Reopen
+            </button>
+
+            <button (click)="deleteTicket(ticket.ticketId)">
+              <fa-icon [icon]="faCircleMinus"></fa-icon> Delete
+            </button>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>

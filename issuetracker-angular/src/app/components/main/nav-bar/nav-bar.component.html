@@ -105,12 +105,13 @@
 
           <label>Assigned to:</label>
           <select
+            [(ngModel)]="unassign"
             class="form-select"
             aria-label="Default select example"
             name="assignedTo"
             ngModel
           >
-            <option value=""></option>
+            <option value="null"></option>
             <option *ngFor="let user of users">
               {{ user.firstName + " " + user.lastName }}
             </option>

@@ -13,7 +13,7 @@
             class="btn btn-success btn-sm"
             type="button"
           >
-            Resolve ticket
+            <fa-icon [icon]="faCheckCircle"></fa-icon> Resolve ticket
           </button>
           <button
             [disabled]="!formValues.form.valid"
@@ -21,6 +21,7 @@
             class="btn btn-success btn-sm"
             type="submit"
           >
+            <fa-icon [icon]="faCheckCircle"></fa-icon>
             Close ticket
           </button>
           <button
@@ -30,7 +31,7 @@
             type="button"
             (click)="toggleUpdate()"
           >
-            Update ticket
+            <fa-icon [icon]="faFilePen"></fa-icon> Update ticket
           </button>
           <button
             [disabled]="!formValues.form.valid"
@@ -38,6 +39,7 @@
             class="btn btn-primary btn-sm"
             type="submit"
           >
+            <fa-icon [icon]="faFloppyDisk"></fa-icon>
             Submit changes
           </button>
         </div>
@@ -149,6 +151,7 @@
             routerLink="/issues/open-issues"
             class="btn btn-secondary btn-sm"
           >
+            <fa-icon [icon]="faChevronLeft"></fa-icon>
             Back
           </button>
           <button
@@ -157,6 +160,7 @@
             class="btn btn-secondary btn-sm"
             type="button"
           >
+            <fa-icon [icon]="faCancel"></fa-icon>
             Cancel
           </button>
           <button
@@ -165,6 +169,7 @@
             class="btn btn-secondary btn-sm"
             type="button"
           >
+            <fa-icon [icon]="faCancel"></fa-icon>
             Cancel
           </button>
         </div>

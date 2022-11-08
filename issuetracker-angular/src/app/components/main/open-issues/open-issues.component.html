@@ -2,7 +2,9 @@
   <div class="column">
     <div class="card">
       <div class="card-body">
-        <h6 class="card-title">Unassign issues</h6>
+        <h6 class="card-title">
+          <fa-icon [icon]="faUserXmark"></fa-icon> Unassign issues
+        </h6>
       </div>
     </div>
     <!-- unassign ticket-->
@@ -30,7 +32,10 @@
   <div class="column" *ngFor="let user of users">
     <div class="card">
       <div class="card-body">
-        <h6 class="card-title">{{ user.firstName + " " + user.lastName }}</h6>
+        <h6 class="card-title">
+          <fa-icon [icon]="faUser"></fa-icon>
+          {{ user.firstName + " " + user.lastName }}
+        </h6>
       </div>
     </div>
     <!-- assigned ticket -->

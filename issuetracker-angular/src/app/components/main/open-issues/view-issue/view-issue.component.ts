@@ -4,6 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Ticket } from 'src/app/models/ticket.model';
 import { User } from 'src/app/models/user.model';
 import { HttpService } from 'src/app/services/http.service';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faFilePen } from '@fortawesome/free-solid-svg-icons';
+import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
+import { faCancel } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-view-issue',
@@ -11,6 +16,11 @@ import { HttpService } from 'src/app/services/http.service';
   styleUrls: ['./view-issue.component.scss'],
 })
 export class ViewIssueComponent implements OnInit {
+  faCheckCircle = faCheckCircle;
+  faFilePen = faFilePen;
+  faFloppyDisk = faFloppyDisk;
+  faCancel = faCancel;
+  faChevronLeft = faChevronLeft;
   dateNow = new Date().toISOString().split('T')[0];
   ticketId!: number;
   ticketNumber!: string;
@@ -22,7 +32,6 @@ export class ViewIssueComponent implements OnInit {
   status!: any;
   dateClosed!: string;
   closedBy!: string;
-  @ViewChild('resolution') resolution!: string;
   users!: User[];
   editMode: boolean = false;
   closeMode: boolean = false;

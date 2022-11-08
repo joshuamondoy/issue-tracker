@@ -1,3 +1,14 @@
 .container-fluid {
   margin-top: 4rem;
 }
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  button {
+    border: none;
+    background: transparent;
+  }
+}
+.actions:hover {
+  cursor: pointer;
+}
