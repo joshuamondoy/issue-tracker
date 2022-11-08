@@ -8,7 +8,7 @@
     <!-- unassign ticket-->
     <div class="ticket-container">
       <div *ngFor="let ticket of tickets">
-        <div class="card" *ngIf="ticket.assignedTo == ''">
+        <div class="card" *ngIf="ticket.assignedTo == 'Unassign'">
           <div class="card-body">
             <h6 class="card-title">
               {{ ticket.ticketNumber }}

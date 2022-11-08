@@ -79,7 +79,8 @@ export class ViewIssueComponent implements OnInit {
         value.description,
         this.dateNow,
         this.openedBy,
-        value.assignedTo,
+        (value.assignedTo =
+          value.assignedTo == '' ? 'Unassign' : value.assignedTo),
         'Open',
         '',
         '',

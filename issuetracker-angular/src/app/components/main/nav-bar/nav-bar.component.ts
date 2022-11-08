@@ -22,7 +22,6 @@ export class NavBarComponent implements OnInit {
 
   onSubmit(formValues: NgForm) {
     const value = formValues.value;
-
     const newIssue = new Ticket(
       0,
       'RITM0524199504',
@@ -30,7 +29,7 @@ export class NavBarComponent implements OnInit {
       value.description,
       this.dateNow,
       'Joshua Mondoy',
-      value.assignedTo,
+      value.assignedTo == '' ? 'Unassign' : value.assignedTo,
       'Open',
       '',
       '',
