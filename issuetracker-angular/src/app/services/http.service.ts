@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Ticket } from '../models/ticket.model';
 import { User } from '../models/user.model';
 
@@ -21,8 +21,15 @@ export class HttpService {
     return this.httpClient.get<User[]>(this.url + '/users');
   }
 
-  getTickets(): Observable<Ticket[]> {
-    return this.httpClient.get<Ticket[]>(this.url + '/tickets');
+  getOpenTickets(): Observable<Ticket[]> {
+    return this.httpClient
+      .get<Ticket[]>(this.url + '/tickets')
+      .pipe(map((res) => res.filter((res) => res.status == 'Open')));
+  }
+  getClosedTickets(): Observable<Ticket[]> {
+    return this.httpClient
+      .get<Ticket[]>(this.url + '/tickets')
+      .pipe(map((res) => res.filter((res) => res.status == 'Closed')));
   }
 
   getTicket(ticketId: number): Observable<Ticket> {
@@ -30,7 +37,13 @@ export class HttpService {
   }
 
   createTicket(ticket: Ticket) {
-    return this.httpClient.post(this.url + '/tickets' + '/add-ticket', ticket);
+    return this.httpClient
+      .post(this.url + '/tickets' + '/add-ticket', ticket)
+      .pipe(
+        tap(() => {
+          this._refresh$.next();
+        })
+      );
   }
   updateTicket(id: number, ticket: Ticket) {
     return this.httpClient.put(this.url + '/tickets/' + id, ticket).pipe(

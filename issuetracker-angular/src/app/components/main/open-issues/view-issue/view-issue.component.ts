@@ -6,11 +6,11 @@ import { User } from 'src/app/models/user.model';
 import { HttpService } from 'src/app/services/http.service';
 
 @Component({
-  selector: 'app-view-issues',
-  templateUrl: './view-issues.component.html',
-  styleUrls: ['./view-issues.component.scss'],
+  selector: 'app-view-issue',
+  templateUrl: './view-issue.component.html',
+  styleUrls: ['./view-issue.component.scss'],
 })
-export class ViewIssuesComponent implements OnInit {
+export class ViewIssueComponent implements OnInit {
   dateNow = new Date().toISOString().split('T')[0];
   ticketId!: number;
   ticketNumber!: string;
@@ -35,13 +35,13 @@ export class ViewIssuesComponent implements OnInit {
     this.activatedRoute.params.subscribe((res) => {
       this.ticketId = parseInt(res['id']);
     });
-    this.getTicket();
+    this.getTickets();
     this.getUsers();
     this.httpService.refresh$.subscribe(() => {
-      this.getTicket();
+      this.getTickets();
     });
   }
-  private getTicket() {
+  private getTickets() {
     this.httpService.getTicket(this.ticketId).subscribe((res) => {
       this.ticketId = res.ticketId;
       this.ticketNumber = res.ticketNumber;

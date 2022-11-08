@@ -1,0 +1,32 @@
+<div class="container-fluid">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Ticket number</th>
+        <th>Subject</th>
+        <th>Description</th>
+        <th>Date created</th>
+        <th>Opened by</th>
+        <th>Assigned to</th>
+        <th>Status</th>
+        <th>Date closed</th>
+        <th>Closed by</th>
+        <th>Resolution</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ticket of tickets">
+        <td>{{ ticket.ticketNumber }}</td>
+        <td>{{ ticket.subject }}</td>
+        <td>{{ ticket.description }}</td>
+        <td>{{ ticket.dateCreated }}</td>
+        <td>{{ ticket.openedBy }}</td>
+        <td>{{ ticket.assignedTo }}</td>
+        <td>{{ ticket.status }}</td>
+        <td>{{ ticket.dateClosed }}</td>
+        <td>{{ ticket.closedBy }}</td>
+        <td>{{ ticket.resolution }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

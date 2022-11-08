@@ -4,11 +4,11 @@ import { User } from 'src/app/models/user.model';
 import { HttpService } from 'src/app/services/http.service';
 
 @Component({
-  selector: 'app-issues',
-  templateUrl: './issues.component.html',
-  styleUrls: ['./issues.component.scss'],
+  selector: 'app-open-issues',
+  templateUrl: './open-issues.component.html',
+  styleUrls: ['./open-issues.component.scss'],
 })
-export class IssuesComponent implements OnInit {
+export class OpenIssuesComponent implements OnInit {
   users!: User[];
   tickets!: Ticket[];
   constructor(private httpService: HttpService) {}
@@ -26,7 +26,7 @@ export class IssuesComponent implements OnInit {
     });
   }
   private getTickets() {
-    this.httpService.getTickets().subscribe((res) => {
+    this.httpService.getOpenTickets().subscribe((res) => {
       this.tickets = res.reverse();
     });
   }
