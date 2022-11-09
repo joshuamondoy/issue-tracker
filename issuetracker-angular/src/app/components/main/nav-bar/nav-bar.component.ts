@@ -47,7 +47,6 @@ export class NavBarComponent implements OnInit {
       '',
       ''
     );
-    console.log(value.assignedTo);
 
     this.httpService.createTicket(newIssue).subscribe();
     this.ticketForm.reset();

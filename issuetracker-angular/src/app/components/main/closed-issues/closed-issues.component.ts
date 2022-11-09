@@ -3,6 +3,7 @@ import { Ticket } from 'src/app/models/ticket.model';
 import { HttpService } from 'src/app/services/http.service';
 import { faRotateLeft } from '@fortawesome/free-solid-svg-icons';
 import { faCircleMinus } from '@fortawesome/free-solid-svg-icons';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-closed-issues',
@@ -14,8 +15,10 @@ export class ClosedIssuesComponent implements OnInit {
   faCircleMinus = faCircleMinus;
   tickets!: Ticket[];
   reopenedTicket!: Ticket;
-  dateNow = new Date().toISOString().split('T')[0];
-  constructor(private httpService: HttpService) {}
+  constructor(
+    private httpService: HttpService,
+    private utilityService: UtilityService
+  ) {}
 
   ngOnInit(): void {
     this.getTickets();
@@ -25,7 +28,7 @@ export class ClosedIssuesComponent implements OnInit {
   }
   private getTickets() {
     this.httpService.getClosedTickets().subscribe((res) => {
-      this.tickets = res;
+      this.tickets = res.reverse();
     });
   }
 
@@ -39,13 +42,10 @@ export class ClosedIssuesComponent implements OnInit {
         res.ticketNumber,
         res.subject,
         res.description,
-        this.dateNow,
-        res.openedBy,
-        'Unassign',
-        'Open',
-        '',
-        '',
-        ''
+        this.utilityService.getDateNow(),
+        'Joshua',
+        this.utilityService.assignTicket(res.assignedTo),
+        this.utilityService.getStatus(true)
       );
       this.httpService.updateTicket(res.ticketId, reopenedTicket).subscribe();
     });

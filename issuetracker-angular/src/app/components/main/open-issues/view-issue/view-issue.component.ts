@@ -9,6 +9,7 @@ import { faFilePen } from '@fortawesome/free-solid-svg-icons';
 import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
 import { faCancel } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-view-issue',
@@ -21,23 +22,17 @@ export class ViewIssueComponent implements OnInit {
   faFloppyDisk = faFloppyDisk;
   faCancel = faCancel;
   faChevronLeft = faChevronLeft;
-  dateNow = new Date().toISOString().split('T')[0];
+
+  ticket?: Ticket;
   ticketId!: number;
-  ticketNumber!: string;
-  subject!: string;
-  description!: string;
-  dateCreated!: string;
-  openedBy!: string;
-  assignedTo!: any;
-  status!: any;
-  dateClosed!: string;
-  closedBy!: string;
+
   users!: User[];
   editMode: boolean = false;
   closeMode: boolean = false;
   constructor(
     private httpService: HttpService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private utilityService: UtilityService
   ) {}
 
   ngOnInit(): void {
@@ -52,14 +47,8 @@ export class ViewIssueComponent implements OnInit {
   }
   private getTickets() {
     this.httpService.getTicket(this.ticketId).subscribe((res) => {
+      this.ticket = res;
       this.ticketId = res.ticketId;
-      this.ticketNumber = res.ticketNumber;
-      this.subject = res.subject;
-      this.description = res.description;
-      this.dateCreated = res.dateCreated;
-      this.openedBy = res.openedBy;
-      this.assignedTo = res.assignedTo;
-      this.status = res.status;
     });
   }
   private getUsers() {
@@ -74,47 +63,43 @@ export class ViewIssueComponent implements OnInit {
   cancelUpdate() {
     this.editMode = !this.editMode;
   }
+  toggleClose() {
+    this.closeMode = !this.closeMode;
+  }
   cancelClose() {
     this.closeMode = !this.closeMode;
   }
   onUpdateTicket(formValues: NgForm) {
-    const value = formValues.value;
+    const formValue = formValues.value;
+    let ticket: Ticket;
     if (this.editMode) {
       this.editMode = !this.editMode;
-      let ticket = new Ticket(
+      ticket = new Ticket(
         this.ticketId,
-        this.ticketNumber,
-        value.subject,
-        value.description,
-        this.dateNow,
-        this.openedBy,
-        (value.assignedTo =
-          value.assignedTo == '' ? 'Unassign' : value.assignedTo),
-        'Open',
-        '',
-        '',
-        ''
+        this.ticket!.ticketNumber,
+        formValue.subject,
+        formValue.description,
+        this.utilityService.getDateNow(),
+        this.ticket!.openedBy,
+        this.ticket!.assignedTo,
+        this.utilityService.getStatus(true)
       );
-      this.httpService.updateTicket(this.ticketId, ticket).subscribe();
     } else if (this.closeMode) {
       this.closeMode = !this.closeMode;
-      let ticket = new Ticket(
+      ticket = new Ticket(
         this.ticketId,
-        this.ticketNumber,
-        this.subject,
-        this.description,
-        this.dateNow,
-        this.openedBy,
-        this.assignedTo,
-        'Closed',
-        this.dateNow,
+        this.ticket!.ticketNumber,
+        this.ticket!.subject,
+        this.ticket!.description,
+        this.ticket!.dateCreated,
+        this.ticket!.openedBy,
+        this.ticket!.assignedTo,
+        this.utilityService.getStatus(false),
+        this.utilityService.getDateNow(),
         'Joshua',
-        value.resolution
+        formValue.resolution
       );
-      this.httpService.updateTicket(this.ticketId, ticket).subscribe();
     }
-  }
-  toggleClose() {
-    this.closeMode = !this.closeMode;
+    this.httpService.updateTicket(this.ticketId, ticket!).subscribe();
   }
 }

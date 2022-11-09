@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ClosedIssuesComponent } from './components/main/closed-issues/closed-issues.component';
+import { LoginComponent } from './components/main/login/login.component';
 import { MainComponent } from './components/main/main.component';
 import { OpenIssuesComponent } from './components/main/open-issues/open-issues.component';
 import { ViewIssueComponent } from './components/main/open-issues/view-issue/view-issue.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'issues/open-issues', pathMatch: 'full' },
+  { path: 'home', component: LoginComponent },
   {
     path: 'issues',
     component: MainComponent,

@@ -12,6 +12,7 @@ import { OpenIssuesComponent } from './components/main/open-issues/open-issues.c
 import { ClosedIssuesComponent } from './components/main/closed-issues/closed-issues.component';
 import { ViewIssueComponent } from './components/main/open-issues/view-issue/view-issue.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { LoginComponent } from './components/main/login/login.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     OpenIssuesComponent,
     ClosedIssuesComponent,
     ViewIssueComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
