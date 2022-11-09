@@ -1,179 +1,180 @@
-<form #formValues="ngForm" (ngSubmit)="onUpdateTicket(formValues)">
-  <div class="card">
-    <div class="card-body">
-      <table class="table">
-        <div class="actions">
-          <h5 class="me-auto">
-            {{ ticket?.ticketNumber }}
-          </h5>
-          <button
-            [disabled]="editMode"
-            *ngIf="!closeMode"
-            (click)="toggleClose()"
-            class="btn btn-success btn-sm"
-            type="button"
-          >
-            <fa-icon [icon]="faCheckCircle"></fa-icon> Resolve ticket
-          </button>
-          <button
-            [disabled]="!formValues.form.valid"
-            *ngIf="closeMode"
-            class="btn btn-success btn-sm"
-            type="submit"
-          >
-            <fa-icon [icon]="faCheckCircle"></fa-icon>
-            Close ticket
-          </button>
-          <button
-            [disabled]="closeMode"
-            *ngIf="!editMode"
-            class="btn btn-primary btn-sm"
-            type="button"
-            (click)="toggleUpdate()"
-          >
-            <fa-icon [icon]="faFilePen"></fa-icon> Update ticket
-          </button>
-          <button
-            [disabled]="!formValues.form.valid"
-            *ngIf="editMode"
-            class="btn btn-primary btn-sm"
-            type="submit"
-          >
-            <fa-icon [icon]="faFloppyDisk"></fa-icon>
-            Submit changes
-          </button>
-        </div>
-        <tbody>
-          <tr>
-            <div class="col-4">
-              <label for="">Subject:</label>
-            </div>
-            <div class="col-8">
-              <td *ngIf="!editMode">{{ ticket?.subject }}</td>
-              <div *ngIf="editMode">
-                <input
-                  required
-                  type="text"
-                  class="form-control form-control-sm"
-                  max-width="8px"
-                  name="subject"
-                  ngModel
-                  [(ngModel)]="ticket!.subject"
-                  [textContent]="ticket!.subject"
-                />
+<div class="container-fluid">
+  <form #formValues="ngForm" (ngSubmit)="onUpdateTicket(formValues)">
+    <div class="card m-2">
+      <div class="card-body">
+        <table class="table">
+          <div class="d-flex justify-content-end gap-1">
+            <h5 class="me-auto">
+              {{ ticket?.ticketNumber }}
+            </h5>
+            <button
+              [disabled]="editMode"
+              *ngIf="!closeMode"
+              (click)="toggleClose()"
+              class="btn btn-success btn-sm"
+              type="button"
+            >
+              <fa-icon [icon]="faCheckCircle"></fa-icon> Resolve ticket
+            </button>
+            <button
+              [disabled]="!formValues.form.valid"
+              *ngIf="closeMode"
+              class="btn btn-success btn-sm"
+              type="submit"
+            >
+              <fa-icon [icon]="faCheckCircle"></fa-icon>
+              Close ticket
+            </button>
+            <button
+              [disabled]="closeMode"
+              *ngIf="!editMode"
+              class="btn btn-primary btn-sm"
+              type="button"
+              (click)="toggleUpdate()"
+            >
+              <fa-icon [icon]="faFilePen"></fa-icon> Update ticket
+            </button>
+            <button
+              [disabled]="!formValues.form.valid"
+              *ngIf="editMode"
+              class="btn btn-primary btn-sm"
+              type="submit"
+            >
+              <fa-icon [icon]="faFloppyDisk"></fa-icon>
+              Submit changes
+            </button>
+          </div>
+          <tbody>
+            <tr>
+              <div class="col-4">
+                <label for="">Subject:</label>
               </div>
-            </div>
-          </tr>
-          <tr>
-            <div class="col-4">
-              <label for="">Description:</label>
-            </div>
-            <div class="col-8">
-              <td *ngIf="!editMode">{{ ticket?.description }}</td>
-              <div *ngIf="editMode" class="form-floating">
-                <textarea
-                  required
-                  id="floatingTextarea"
-                  class="form-control form-control-sm"
-                  name="description"
-                  ngModel
-                  [(ngModel)]="ticket!.description"
-                ></textarea>
+              <div class="col-8">
+                <td *ngIf="!editMode">{{ ticket?.subject }}</td>
+                <div *ngIf="editMode">
+                  <input
+                    required
+                    type="text"
+                    class="form-control form-control-sm"
+                    max-width="8px"
+                    name="subject"
+                    ngModel
+                    [(ngModel)]="ticket!.subject"
+                    [textContent]="ticket!.subject"
+                  />
+                </div>
               </div>
-            </div>
-          </tr>
-          <tr>
-            <div class="col-4">
-              <label for="">Date created:</label>
-            </div>
-            <div class="col-8">
-              <td>{{ ticket?.dateCreated }}</td>
-            </div>
-          </tr>
-          <tr>
-            <div class="col-4">
-              <label for="">Opened by:</label>
-            </div>
-            <div class="col-8">
-              <td>{{ ticket?.openedBy }}</td>
-            </div>
-          </tr>
-          <tr>
-            <div class="col-4">
-              <label for="">Assigned to:</label>
-            </div>
-            <div class="col-8">
-              <td *ngIf="!editMode">{{ ticket?.assignedTo }}</td>
-              <div *ngIf="editMode">
-                <select
-                  [(ngModel)]="ticket!.assignedTo"
-                  class="form-select"
-                  aria-label="Default select example"
-                  name="assignedTo"
-                  ngModel
-                >
-                  <option value=""></option>
-                  <option *ngFor="let user of users">
-                    {{ user.firstName + " " + user.lastName }}
-                  </option>
-                </select>
+            </tr>
+            <tr>
+              <div class="col-4">
+                <label for="">Description:</label>
               </div>
-            </div>
-          </tr>
-          <tr>
-            <div class="col-4">
-              <label for="">Status:</label>
-            </div>
-            <div class="col-8">
-              <td>{{ ticket?.status }}</td>
-            </div>
-          </tr>
-          <tr *ngIf="closeMode">
-            <div class="col-4">
-              <label for="">Resolution:</label>
-            </div>
-            <div class="col-8">
-              <div class="form-floating">
-                <textarea
-                  required
-                  id="floatingTextarea"
-                  name="resolution"
-                  ngModel
-                  class="form-control form-control-sm"
-                ></textarea>
+              <div class="col-8">
+                <td *ngIf="!editMode">{{ ticket?.description }}</td>
+                <div *ngIf="editMode" class="form-floating">
+                  <textarea
+                    required
+                    id="floatingTextarea"
+                    class="form-control form-control-sm"
+                    name="description"
+                    ngModel
+                    [(ngModel)]="ticket!.description"
+                  ></textarea>
+                </div>
               </div>
-            </div>
-          </tr>
-        </tbody>
-        <div class="actions">
-          <button
-            *ngIf="!editMode && !closeMode"
-            routerLink="/issues/open-issues"
-            class="btn btn-secondary btn-sm"
-          >
-            <fa-icon [icon]="faChevronLeft"></fa-icon>
-            Back
-          </button>
-          <button
-            *ngIf="editMode"
-            (click)="cancelUpdate()"
-            class="btn btn-secondary btn-sm"
-            type="button"
-          >
-            <fa-icon [icon]="faCancel"></fa-icon>
-            Cancel
-          </button>
-          <button
-            *ngIf="closeMode"
-            (click)="cancelClose()"
-            class="btn btn-secondary btn-sm"
-            type="button"
-          >
-            <fa-icon [icon]="faCancel"></fa-icon>
-            Cancel
-          </button>
-        </div>
-      </table>
+            </tr>
+            <tr>
+              <div class="col-4">
+                <label for="">Date created:</label>
+              </div>
+              <div class="col-8">
+                <td>{{ ticket?.dateCreated }}</td>
+              </div>
+            </tr>
+            <tr>
+              <div class="col-4">
+                <label for="">Opened by:</label>
+              </div>
+              <div class="col-8">
+                <td>{{ ticket?.openedBy }}</td>
+              </div>
+            </tr>
+            <tr>
+              <div class="col-4">
+                <label for="">Assigned to:</label>
+              </div>
+              <div class="col-8">
+                <td *ngIf="!editMode">{{ ticket?.assignedTo }}</td>
+                <div *ngIf="editMode">
+                  <select
+                    [(ngModel)]="ticket!.assignedTo"
+                    class="form-select"
+                    aria-label="Default select example"
+                    name="assignedTo"
+                    ngModel
+                  >
+                    <option value=""></option>
+                    <option *ngFor="let user of users">
+                      {{ user.firstName + " " + user.lastName }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </tr>
+            <tr>
+              <div class="col-4">
+                <label for="">Status:</label>
+              </div>
+              <div class="col-8">
+                <td>{{ ticket?.status }}</td>
+              </div>
+            </tr>
+            <tr *ngIf="closeMode">
+              <div class="col-4">
+                <label for="">Resolution:</label>
+              </div>
+              <div class="col-8">
+                <div class="form-floating">
+                  <textarea
+                    required
+                    id="floatingTextarea"
+                    name="resolution"
+                    ngModel
+                    class="form-control form-control-sm"
+                  ></textarea>
+                </div>
+              </div>
+            </tr>
+          </tbody>
+          <div class="d-flex justify-content-end">
+            <button
+              *ngIf="!editMode && !closeMode"
+              class="back-btn"
+              routerLink="/issues/open-issues"
+            >
+              <fa-icon [icon]="faChevronLeft"></fa-icon>
+            </button>
+            <button
+              *ngIf="editMode"
+              (click)="cancelUpdate()"
+              class="btn btn-secondary btn-sm"
+              type="button"
+            >
+              <fa-icon [icon]="faCancel"></fa-icon>
+              Cancel
+            </button>
+            <button
+              *ngIf="closeMode"
+              (click)="cancelClose()"
+              class="btn btn-secondary btn-sm"
+              type="button"
+            >
+              <fa-icon [icon]="faCancel"></fa-icon>
+              Cancel
+            </button>
+          </div>
+        </table>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
+</div>

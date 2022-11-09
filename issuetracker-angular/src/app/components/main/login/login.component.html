@@ -1,1 +1,119 @@
-<p>login works!</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col d-flex flex-column">
+      <a routerLink="/issues/open-issues"
+        ><fa-icon
+          [icon]="faCaretLeft"
+          class="mt-4"
+          (click)="toggleRegister()"
+        ></fa-icon>
+        View all issues</a
+      >
+
+      <h1>Issue tracker</h1>
+      <h6>Manage and provide resolution to incoming issues.</h6>
+      <div class="d-flex mt-4">
+        <button
+          (click)="toggleForm()"
+          class="btn btn-success align-self-center login-btn"
+        >
+          Get started
+        </button>
+      </div>
+    </div>
+    <div
+      *ngIf="getStarted"
+      class="col d-flex justify-content-center align-items-center"
+    >
+      <div class="card" style="width: 25rem">
+        <div class="card-body">
+          <div class="d-flex justify-content-center m-3">
+            <h3 class="card-title" *ngIf="isRegistered">Login</h3>
+            <h3 class="card-title" *ngIf="!isRegistered">Register</h3>
+          </div>
+          <form #formValues="ngForm" (ngSubmit)="onSubmit(formValues)">
+            <div class="login-form" *ngIf="isRegistered">
+              <label>Email:</label>
+              <input
+                type="email"
+                class="form-control form control-sm"
+                name="email"
+                ngModel
+                required
+              />
+              <label>Password:</label>
+              <input
+                type="password"
+                class="form-control form control-sm"
+                name="password"
+                ngModel
+                required
+              />
+              <div class="d-flex justify-content-center flex-column mt-4">
+                <button class="btn btn-success">Submit</button>
+                <p class="align-self-center">
+                  Didn't have an account?
+                  <button class="sign-up-btn" (click)="toggleRegister()">
+                    Sign up
+                  </button>
+                </p>
+              </div>
+            </div>
+            <div class="register-form" *ngIf="!isRegistered">
+              <label>First name:</label>
+              <input
+                type="text"
+                class="form-control form control-sm"
+                name="firstname"
+                ngModel
+                required
+              />
+
+              <label>Last name:</label>
+              <input
+                type="text"
+                class="form-control form control-sm"
+                name="lastname"
+                ngModel
+                required
+              />
+              <label>Email:</label>
+              <input
+                type="email"
+                class="form-control form control-sm"
+                name="email"
+                ngModel
+                required
+              />
+              <label>Password:</label>
+              <input
+                type="password"
+                class="form-control form control-sm"
+                name="password"
+                ngModel
+                required
+              />
+              <label>Re-type password:</label>
+              <input
+                type="password"
+                class="form-control form control-sm"
+                name="repassword"
+                ngModel
+                required
+              />
+              <div class="d-flex justify-content-center flex-column mt-4">
+                <button class="btn btn-success">Submit</button>
+
+                <fa-icon
+                  [icon]="faArrowLeft"
+                  class="mt-4"
+                  (click)="toggleRegister()"
+                ></fa-icon>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
