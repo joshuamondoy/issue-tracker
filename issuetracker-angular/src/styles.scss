@@ -1,9 +1,18 @@
+$primary-btn-color: #08cf65;
+$secondary-btn-color: #06b357;
+$primary-color: #f0f2f6;
+$primary-link-color: #005e5d;
+$secondary-link-color: blue;
 ** {
   border: none;
   margin: 0%;
   box-sizing: border-box;
 }
 
-a:link {
+.link {
   text-decoration: none;
+  color: $secondary-link-color;
+}
+label {
+  font-weight: 500;
 }

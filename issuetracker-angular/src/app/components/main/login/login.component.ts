@@ -12,7 +12,7 @@ export class LoginComponent implements OnInit {
   faArrowLeft = faArrowLeft;
   faCaretLeft = faCaretLeft;
   isRegistered: boolean = true;
-  getStarted: boolean = false;
+  isSmallScreen: boolean = false;
   constructor() {}
 
   ngOnInit(): void {}
@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
   }
 
   toggleForm() {
-    this.getStarted = !this.getStarted;
+    this.isSmallScreen = !this.isSmallScreen;
+    console.log(this.isSmallScreen);
   }
 }

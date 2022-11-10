@@ -93,5 +93,5 @@ public class Controller {
 		ticketRepository.deleteById(id);
 		return ResponseEntity.noContent().build();
 	}
-
+	
 }

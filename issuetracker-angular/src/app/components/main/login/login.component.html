@@ -1,31 +1,32 @@
-<div class="container-fluid">
+<div class="container-fluid d-flex justify-content-cente align-items-stretch">
   <div class="row">
-    <div class="col d-flex flex-column">
-      <a routerLink="/issues/open-issues"
-        ><fa-icon
-          [icon]="faCaretLeft"
-          class="mt-4"
-          (click)="toggleRegister()"
-        ></fa-icon>
-        View all issues</a
-      >
-
-      <h1>Issue tracker</h1>
-      <h6>Manage and provide resolution to incoming issues.</h6>
-      <div class="d-flex mt-4">
-        <button
-          (click)="toggleForm()"
-          class="btn btn-success align-self-center login-btn"
-        >
-          Get started
+    <div
+      [ngClass]="isSmallScreen ? 'hide-form' : ''"
+      class="col d-flex justify-content-center flex-column align-items-center"
+    >
+      <div class="mb-1rem">
+        <button class="view-issues-btn" routerLink="/issues/open-issues">
+          <fa-icon [icon]="faCaretLeft" (click)="toggleRegister()"></fa-icon>
+          View all issues
         </button>
+        <h1>Issue tracker</h1>
+        <h6>Manage and provide resolution to incoming issues.</h6>
+        <div class="d-flex mt-4 d-lg-none">
+          <button
+            (click)="toggleForm()"
+            type="button"
+            class="btn btn-success align-self-center login-btn"
+          >
+            Get started
+          </button>
+        </div>
       </div>
     </div>
     <div
-      *ngIf="getStarted"
-      class="col d-flex justify-content-center align-items-center"
+      [ngClass]="isSmallScreen ? 'show-form' : ''"
+      class="col d-flex justify-content-center flex-column align-items-center d-none d-lg-flex"
     >
-      <div class="card" style="width: 25rem">
+      <div class="card" [ngClass]="isSmallScreen ? 'adjust-card' : ''">
         <div class="card-body">
           <div class="d-flex justify-content-center m-3">
             <h3 class="card-title" *ngIf="isRegistered">Login</h3>
@@ -52,8 +53,10 @@
               <div class="d-flex justify-content-center flex-column mt-4">
                 <button class="btn btn-success">Submit</button>
                 <p class="align-self-center">
-                  Didn't have an account?
-                  <button class="sign-up-btn" (click)="toggleRegister()">
+                  Didn't have an account?<button
+                    class="sign-up-btn link"
+                    (click)="toggleRegister()"
+                  >
                     Sign up
                   </button>
                 </p>
