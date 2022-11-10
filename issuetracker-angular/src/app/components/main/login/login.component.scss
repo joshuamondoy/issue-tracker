@@ -1,7 +1,8 @@
 @import "../../../../styles.scss";
 .container-fluid {
   height: 100vh;
-  background-color: $primary-color;
+  // background-color: $primary-color;
+  background-image: linear-gradient($primary-color, white);
   .row {
     width: 100%;
     .col:nth-child(1) {

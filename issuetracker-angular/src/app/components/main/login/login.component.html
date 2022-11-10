@@ -4,7 +4,7 @@
       [ngClass]="isSmallScreen ? 'hide-form' : ''"
       class="col d-flex justify-content-center flex-column align-items-center p-5"
     >
-      <div class="mb-1rem">
+      <div class="mb-1">
         <button class="view-issues-btn" routerLink="/issues/open-issues">
           <fa-icon [icon]="faCaretLeft" (click)="toggleRegister()"></fa-icon>
           View all issues
@@ -39,84 +39,90 @@
             <h3 class="card-title" *ngIf="!isRegistered">Register</h3>
           </div>
           <form #formValues="ngForm" (ngSubmit)="onSubmit(formValues)">
-            <div class="register-form">
-              <div *ngIf="!isRegistered">
-                <label>First name:</label>
-                <input
-                  type="text"
-                  class="form-control form control-sm"
-                  name="firstname"
-                  ngModel
-                  required
-                />
+            <label *ngIf="!isRegistered">First name:</label>
+            <input
+              *ngIf="!isRegistered"
+              type="text"
+              class="form-control form control-sm"
+              name="firstName"
+              ngModel
+              required
+            />
 
-                <label>Last name:</label>
-                <input
-                  type="text"
-                  class="form-control form control-sm"
-                  name="lastname"
-                  ngModel
-                  required
-                />
-              </div>
-              <label>Email:</label>
-              <input
-                type="email"
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-                class="form-control form control-sm"
-                name="email"
-                ngModel
-                required
-              />
-              <label>Password:</label>
-              <input
-                type="password"
-                class="form-control form control-sm"
-                name="password"
-                ngModel
-                required
-              />
-              <div *ngIf="!isRegistered">
-                <label>Re-type password:</label>
-                <input
-                  type="password"
-                  class="form-control form control-sm"
-                  name="repassword"
-                  ngModel
-                  required
-                />
-              </div>
-              <div class="d-flex justify-content-center flex-column mt-4">
-                <button
-                  *ngIf="isRegistered"
-                  class="btn btn-success"
-                  type="submit"
-                >
-                  Submit
-                </button>
-                <button
-                  *ngIf="!isRegistered"
-                  [disabled]="!formValues.form.valid"
-                  class="btn btn-success"
-                  type="submit"
-                >
-                  Submit
-                </button>
-                <p *ngIf="isRegistered" class="align-self-center">
-                  Don't have an account?<button
-                    class="sign-up-btn link"
-                    (click)="toggleRegister()"
-                  >
-                    Sign up
-                  </button>
-                </p>
-                <fa-icon
-                  *ngIf="!isRegistered"
-                  [icon]="faArrowLeft"
-                  class="mt-4"
+            <label *ngIf="!isRegistered">Last name:</label>
+            <input
+              *ngIf="!isRegistered"
+              type="text"
+              class="form-control form control-sm"
+              name="lastName"
+              ngModel
+              required
+            />
+
+            <label>Email:</label>
+            <input
+              type="email"
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+              class="form-control form control-sm"
+              name="email"
+              ngModel
+              required
+            />
+            <label>Password:</label>
+            <input
+              [type]="isShowPassword ? 'text' : 'password'"
+              class="form-control form control-sm"
+              name="password"
+              ngModel
+              required
+            />
+
+            <label *ngIf="!isRegistered">Re-type password:</label>
+            <input
+              *ngIf="!isRegistered"
+              [type]="isShowPassword ? 'text' : 'password'"
+              class="form-control form control-sm"
+              name="repassword"
+              ngModel
+              required
+            />
+            <input
+              type="checkbox"
+              (click)="showPassword()"
+              [(ngModel)]="isShowPassword"
+              [ngModelOptions]="{ standalone: true }"
+            />
+            Show Password
+            <div class="d-flex justify-content-center flex-column mt-4">
+              <button
+                *ngIf="isRegistered"
+                class="btn btn-success"
+                type="submit"
+              >
+                Submit
+              </button>
+              <button
+                *ngIf="!isRegistered"
+                [disabled]="!formValues.form.valid"
+                class="btn btn-success"
+                type="submit"
+              >
+                Submit
+              </button>
+              <p *ngIf="isRegistered" class="align-self-center">
+                Don't have an account?<button
+                  class="sign-up-btn link"
                   (click)="toggleRegister()"
-                ></fa-icon>
-              </div>
+                >
+                  Sign up
+                </button>
+              </p>
+              <fa-icon
+                *ngIf="!isRegistered"
+                [icon]="faArrowLeft"
+                class="mt-4"
+                (click)="toggleRegister()"
+              ></fa-icon>
             </div>
           </form>
         </div>

@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faCaretLeft } from '@fortawesome/free-solid-svg-icons';
 import { User } from 'src/app/models/user.model';
+import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-login',
@@ -15,13 +16,15 @@ export class LoginComponent implements OnInit {
   isRegistered: boolean = true;
   isSmallScreen: boolean = false;
   isLogin: boolean = false;
-  constructor() {}
+  isShowPassword: boolean = false;
+  constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {}
 
   onSubmit(formValues: NgForm) {
     let user;
     let formValue = formValues.value;
+
     if (this.isRegistered) {
     } else {
       user = new User(
@@ -31,7 +34,8 @@ export class LoginComponent implements OnInit {
         formValue.email,
         formValue.password
       );
-      console.log(user);
+
+      this.httpService.addUser(user).subscribe();
     }
   }
 
@@ -41,5 +45,9 @@ export class LoginComponent implements OnInit {
 
   toggleForm() {
     this.isSmallScreen = !this.isSmallScreen;
+  }
+
+  showPassword() {
+    this.isShowPassword = !this.isShowPassword;
   }
 }

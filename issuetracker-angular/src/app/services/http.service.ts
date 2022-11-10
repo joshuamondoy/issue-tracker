@@ -45,6 +45,15 @@ export class HttpService {
         })
       );
   }
+  addUser(user: User) {
+    console.log(this.url + '/users' + '/add-user', user);
+
+    return this.httpClient.post(this.url + '/add-user', user).pipe(
+      tap(() => {
+        this._refresh$.next();
+      })
+    );
+  }
   updateTicket(id: number, ticket: Ticket) {
     return this.httpClient.put(this.url + '/tickets/' + id, ticket).pipe(
       tap(() => {
