@@ -1,6 +1,7 @@
 @import "../../../../styles.scss";
 .container-fluid {
   height: 100vh;
+  background-color: $primary-color;
   .row {
     width: 100%;
     .col:nth-child(1) {
@@ -10,7 +11,7 @@
         color: $primary-link-color;
         font-weight: bolder;
       }
-      h1 {
+      .title {
         font-size: 6rem;
       }
     }
@@ -52,5 +53,8 @@ fa-icon {
 @media (max-width: 450px) {
   .card {
     width: auto;
+  }
+  .title {
+    font-size: 5rem !important;
   }
 }

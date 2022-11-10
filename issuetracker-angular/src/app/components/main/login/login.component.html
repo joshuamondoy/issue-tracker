@@ -2,15 +2,21 @@
   <div class="row">
     <div
       [ngClass]="isSmallScreen ? 'hide-form' : ''"
-      class="col d-flex justify-content-center flex-column align-items-center"
+      class="col d-flex justify-content-center flex-column align-items-center p-5"
     >
       <div class="mb-1rem">
         <button class="view-issues-btn" routerLink="/issues/open-issues">
           <fa-icon [icon]="faCaretLeft" (click)="toggleRegister()"></fa-icon>
           View all issues
         </button>
-        <h1>Issue tracker</h1>
-        <h6>Manage and provide resolution to incoming issues.</h6>
+        <h1 class="title">Issue tracker</h1>
+        <h6 class="text-muted">
+          Easily manage and track your organization's issues. Resolve and
+          provide necessary resolution. Lorem ipsum dolor, sit amet consectetur
+          adipisicing elit. Veritatis pariatur saepe laudantium consequatur non
+          neque adipisci dicta! Minus placeat totam accusantium dicta earum
+          ipsam.
+        </h6>
         <div class="d-flex mt-4 d-lg-none">
           <button
             (click)="toggleForm()"
@@ -33,10 +39,30 @@
             <h3 class="card-title" *ngIf="!isRegistered">Register</h3>
           </div>
           <form #formValues="ngForm" (ngSubmit)="onSubmit(formValues)">
-            <div class="login-form" *ngIf="isRegistered">
+            <div class="register-form">
+              <div *ngIf="!isRegistered">
+                <label>First name:</label>
+                <input
+                  type="text"
+                  class="form-control form control-sm"
+                  name="firstname"
+                  ngModel
+                  required
+                />
+
+                <label>Last name:</label>
+                <input
+                  type="text"
+                  class="form-control form control-sm"
+                  name="lastname"
+                  ngModel
+                  required
+                />
+              </div>
               <label>Email:</label>
               <input
                 type="email"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
                 class="form-control form control-sm"
                 name="email"
                 ngModel
@@ -50,64 +76,42 @@
                 ngModel
                 required
               />
+              <div *ngIf="!isRegistered">
+                <label>Re-type password:</label>
+                <input
+                  type="password"
+                  class="form-control form control-sm"
+                  name="repassword"
+                  ngModel
+                  required
+                />
+              </div>
               <div class="d-flex justify-content-center flex-column mt-4">
-                <button class="btn btn-success">Submit</button>
-                <p class="align-self-center">
-                  Didn't have an account?<button
+                <button
+                  *ngIf="isRegistered"
+                  class="btn btn-success"
+                  type="submit"
+                >
+                  Submit
+                </button>
+                <button
+                  *ngIf="!isRegistered"
+                  [disabled]="!formValues.form.valid"
+                  class="btn btn-success"
+                  type="submit"
+                >
+                  Submit
+                </button>
+                <p *ngIf="isRegistered" class="align-self-center">
+                  Don't have an account?<button
                     class="sign-up-btn link"
                     (click)="toggleRegister()"
                   >
                     Sign up
                   </button>
                 </p>
-              </div>
-            </div>
-            <div class="register-form" *ngIf="!isRegistered">
-              <label>First name:</label>
-              <input
-                type="text"
-                class="form-control form control-sm"
-                name="firstname"
-                ngModel
-                required
-              />
-
-              <label>Last name:</label>
-              <input
-                type="text"
-                class="form-control form control-sm"
-                name="lastname"
-                ngModel
-                required
-              />
-              <label>Email:</label>
-              <input
-                type="email"
-                class="form-control form control-sm"
-                name="email"
-                ngModel
-                required
-              />
-              <label>Password:</label>
-              <input
-                type="password"
-                class="form-control form control-sm"
-                name="password"
-                ngModel
-                required
-              />
-              <label>Re-type password:</label>
-              <input
-                type="password"
-                class="form-control form control-sm"
-                name="repassword"
-                ngModel
-                required
-              />
-              <div class="d-flex justify-content-center flex-column mt-4">
-                <button class="btn btn-success">Submit</button>
-
                 <fa-icon
+                  *ngIf="!isRegistered"
                   [icon]="faArrowLeft"
                   class="mt-4"
                   (click)="toggleRegister()"

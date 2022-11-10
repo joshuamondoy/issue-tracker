@@ -7,12 +7,12 @@ import { OpenIssuesComponent } from './components/main/open-issues/open-issues.c
 import { ViewIssueComponent } from './components/main/open-issues/view-issue/view-issue.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'issues/open-issues', pathMatch: 'full' },
-  { path: 'home', component: LoginComponent },
+  { path: '', redirectTo: 'issues/home', pathMatch: 'full' },
   {
     path: 'issues',
     component: MainComponent,
     children: [
+      { path: 'home', component: LoginComponent },
       { path: 'open-issues', component: OpenIssuesComponent },
       { path: 'closed-issues', component: ClosedIssuesComponent },
     ],
