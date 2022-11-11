@@ -96,6 +96,18 @@
               [ngModelOptions]="{ standalone: true }"
             />
             Show Password
+            <p
+              *ngIf="
+                formValues.form.invalid &&
+                (formValues.form.dirty || formValues.form.touched)
+              "
+              class="alert"
+            >
+              Please complete the required reqired fields.
+            </p>
+            <p *ngIf="password != confirmPassword" class="alert">
+              Password didn't match.
+            </p>
             <div class="d-flex justify-content-center flex-column mt-4">
               <button
                 *ngIf="isRegistered"
