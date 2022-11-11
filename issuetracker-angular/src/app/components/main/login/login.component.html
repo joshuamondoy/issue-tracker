@@ -39,107 +39,132 @@
             <h3 class="card-title" *ngIf="!isRegistered">Sign-up</h3>
           </div>
           <form #formValues="ngForm" (ngSubmit)="onSubmit(formValues)">
-            <label *ngIf="!isRegistered">First name:</label>
-            <input
-              *ngIf="!isRegistered"
-              type="text"
-              class="form-control form control-sm"
-              name="firstname"
-              ngModel
-              required
-            />
+            <div *ngIf="isRegistered" class="login-form">
+              <label>Email:</label>
+              <input
+                type="email"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                class="form-control form control-sm"
+                name="loginemail"
+                ngModel
+                required
+              />
 
-            <label *ngIf="!isRegistered">Last name:</label>
-            <input
-              *ngIf="!isRegistered"
-              type="text"
-              class="form-control form control-sm"
-              name="lastname"
-              ngModel
-              required
-            />
+              <label>Password:</label>
+              <input
+                [type]="isShowPassword ? 'text' : 'password'"
+                class="form-control form control-sm"
+                name="loginpassword"
+                ngModel
+                required
+              />
+              <input
+                type="checkbox"
+                (click)="showPassword()"
+                [(ngModel)]="isShowPassword"
+                [ngModelOptions]="{ standalone: true }"
+              />
+              Show Password
+              <div class="d-flex justify-content-center flex-column mt-4">
+                <button class="btn btn-success" type="submit">Submit</button>
+                <p *ngIf="isRegistered" class="align-self-center">
+                  Don't have an account?<button
+                    class="sign-up-btn link"
+                    (click)="toggleRegister()"
+                  >
+                    Sign up
+                  </button>
+                </p>
+              </div>
+            </div>
+            <div *ngIf="!isRegistered" class="sign-up-form">
+              <label>First name:</label>
+              <input
+                type="text"
+                class="form-control form control-sm"
+                name="firstname"
+                ngModel
+                required
+              />
 
-            <label>Email:</label>
-            <input
-              type="email"
-              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-              class="form-control form control-sm"
-              name="email"
-              ngModel
-              required
-            />
+              <label>Last name:</label>
+              <input
+                type="text"
+                class="form-control form control-sm"
+                name="lastname"
+                ngModel
+                required
+              />
 
-            <label>Password:</label>
-            <input
-              [(ngModel)]="password"
-              [type]="isShowPassword ? 'text' : 'password'"
-              class="form-control form control-sm"
-              name="password"
-              ngModel
-              required
-            />
+              <label>Email:</label>
+              <input
+                type="email"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                class="form-control form control-sm"
+                name="signupemail"
+                ngModel
+                required
+              />
 
-            <label *ngIf="!isRegistered">Confirm password:</label>
-            <input
-              *ngIf="!isRegistered"
-              [(ngModel)]="confirmPassword"
-              [type]="isShowPassword ? 'text' : 'password'"
-              class="form-control form control-sm"
-              name="confirmpassword"
-              ngModel
-              required
-            />
-            <input
-              type="checkbox"
-              (click)="showPassword()"
-              [(ngModel)]="isShowPassword"
-              [ngModelOptions]="{ standalone: true }"
-            />
-            Show Password
-            <p
-              *ngIf="
-                formValues.form.invalid &&
-                (formValues.form.dirty || formValues.form.touched)
-              "
-              class="alert"
-            >
-              Please complete the required reqired fields.
-            </p>
-            <p *ngIf="password != confirmPassword" class="alert">
-              Password didn't match.
-            </p>
-            <div class="d-flex justify-content-center flex-column mt-4">
-              <button
-                *ngIf="isRegistered"
-                class="btn btn-success"
-                type="submit"
-              >
-                Submit
-              </button>
-              <button
-                *ngIf="!isRegistered"
-                [disabled]="
-                  !(formValues.form.valid && password == confirmPassword)
+              <label>Password:</label>
+              <input
+                [(ngModel)]="signupPassword"
+                [type]="isShowPassword ? 'text' : 'password'"
+                class="form-control form control-sm"
+                name="signuppassword"
+                ngModel
+                required
+              />
+
+              <label>Confirm password:</label>
+              <input
+                [(ngModel)]="confirmPassword"
+                [type]="isShowPassword ? 'text' : 'password'"
+                class="form-control form control-sm"
+                name="confirmpassword"
+                ngModel
+                required
+              />
+
+              <input
+                type="checkbox"
+                (click)="showPassword()"
+                [(ngModel)]="isShowPassword"
+                [ngModelOptions]="{ standalone: true }"
+              />
+              Show Password
+              <p
+                *ngIf="
+                  formValues.form.invalid &&
+                  (formValues.form.dirty || formValues.form.touched)
                 "
-                class="btn btn-success"
-                type="submit"
+                class="alert"
               >
-                Submit
-              </button>
-              <p *ngIf="isRegistered" class="align-self-center">
-                Don't have an account?<button
-                  class="sign-up-btn link"
-                  (click)="toggleRegister()"
-                >
-                  Sign up
-                </button>
+                Please complete the required reqired fields.
               </p>
-              <fa-icon
-                *ngIf="!isRegistered"
-                [icon]="faArrowLeft"
-                class="mt-4"
-                (click)="toggleRegister()"
-              ></fa-icon>
+              <p *ngIf="signupPassword != confirmPassword" class="alert">
+                Password didn't match.
+              </p>
+              <div class="d-flex justify-content-center flex-column mt-4">
+                <button
+                  *ngIf="!isRegistered"
+                  [disabled]="
+                    !(
+                      formValues.form.valid && signupPassword == confirmPassword
+                    )
+                  "
+                  class="btn btn-success"
+                  type="submit"
+                >
+                  Submit
+                </button>
+
+                <fa-icon
+                  [icon]="faArrowLeft"
+                  class="mt-4"
+                  (click)="toggleRegister()"
+                ></fa-icon>
+              </div>
             </div>
           </form>
         </div>

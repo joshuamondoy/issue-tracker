@@ -48,8 +48,6 @@ export class HttpService {
       );
   }
   addUser(user: User) {
-    console.log(this.url + '/users' + '/add-user', user);
-
     return this.httpClient.post(this.url + '/add-user', user).pipe(
       tap(() => {
         this._refresh$.next();

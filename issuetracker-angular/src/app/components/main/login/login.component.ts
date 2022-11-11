@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   isLogin: boolean = false;
   isShowPassword: boolean = false;
   isPasswordMatch!: boolean;
-  password!: boolean;
+  signupPassword!: boolean;
   confirmPassword!: boolean;
 
   constructor(private httpService: HttpService) {}
@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit {
   onSubmit(formValues: NgForm) {
     let user;
     let formValue = formValues.value;
-    console.log(formValue);
 
     if (this.isRegistered) {
     } else {
@@ -36,11 +35,11 @@ export class LoginComponent implements OnInit {
         0,
         formValue.firstname,
         formValue.lastname,
-        formValue.email,
-        formValue.password
+        formValue.signupemail,
+        formValue.signuppassword
       );
 
-      // this.httpService.addUser(user).subscribe();
+      this.httpService.addUser(user).subscribe();
     }
   }
 
