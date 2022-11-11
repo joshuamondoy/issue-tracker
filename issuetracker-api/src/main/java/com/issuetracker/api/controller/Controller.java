@@ -22,7 +22,7 @@ import com.issuetracker.api.repository.UserRepository;
 
 @CrossOrigin(origins="http://localhost:4200")
 @RestController
-@RequestMapping("/issuetracker-api")
+@RequestMapping("/issuetracker-api") 
 public class Controller {
 
 	@Autowired
