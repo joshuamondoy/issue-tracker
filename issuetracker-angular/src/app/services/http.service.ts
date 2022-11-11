@@ -11,6 +11,8 @@ import { User } from '../models/user.model';
 export class HttpService {
   private url = 'http://localhost:8080/issuetracker-api';
   private _refresh$ = new Subject<void>();
+  public numberOfOpenTickets = new Subject<number>();
+  public numberOfClosedTickets = new Subject<number>();
   constructor(private httpClient: HttpClient) {}
 
   get refresh$() {

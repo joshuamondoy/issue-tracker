@@ -17,6 +17,10 @@ export class LoginComponent implements OnInit {
   isSmallScreen: boolean = false;
   isLogin: boolean = false;
   isShowPassword: boolean = false;
+  isPasswordMatch!: boolean;
+  password!: boolean;
+  confirmPassword!: boolean;
+
   constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {}
@@ -24,18 +28,19 @@ export class LoginComponent implements OnInit {
   onSubmit(formValues: NgForm) {
     let user;
     let formValue = formValues.value;
+    console.log(formValue);
 
     if (this.isRegistered) {
     } else {
       user = new User(
         0,
-        formValue.firstName,
-        formValue.lastName,
+        formValue.firstname,
+        formValue.lastname,
         formValue.email,
         formValue.password
       );
 
-      this.httpService.addUser(user).subscribe();
+      // this.httpService.addUser(user).subscribe();
     }
   }
 

@@ -29,6 +29,7 @@ export class ClosedIssuesComponent implements OnInit {
   private getTickets() {
     this.httpService.getClosedTickets().subscribe((res) => {
       this.tickets = res.reverse();
+      this.httpService.numberOfClosedTickets.next(res.length);
     });
   }
 

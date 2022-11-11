@@ -1,8 +1,7 @@
 @import "../../../../styles.scss";
 .container-fluid {
   height: 100vh;
-  // background-color: $primary-color;
-  background-image: linear-gradient($primary-color, white);
+  background-color: $primary-color;
   .row {
     width: 100%;
     .col:nth-child(1) {
@@ -50,7 +49,9 @@ fa-icon {
 .hide-form {
   display: none !important;
 }
-
+// .ng-invalid:not(form) {
+//   border-right: 5px solid #a94442;
+// }
 @media (max-width: 450px) {
   .card {
     width: auto;

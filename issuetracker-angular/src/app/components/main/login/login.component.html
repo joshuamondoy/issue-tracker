@@ -36,7 +36,7 @@
         <div class="card-body">
           <div class="d-flex justify-content-center m-3">
             <h3 class="card-title" *ngIf="isRegistered">Login</h3>
-            <h3 class="card-title" *ngIf="!isRegistered">Register</h3>
+            <h3 class="card-title" *ngIf="!isRegistered">Sign-up</h3>
           </div>
           <form #formValues="ngForm" (ngSubmit)="onSubmit(formValues)">
             <label *ngIf="!isRegistered">First name:</label>
@@ -44,7 +44,7 @@
               *ngIf="!isRegistered"
               type="text"
               class="form-control form control-sm"
-              name="firstName"
+              name="firstname"
               ngModel
               required
             />
@@ -54,7 +54,7 @@
               *ngIf="!isRegistered"
               type="text"
               class="form-control form control-sm"
-              name="lastName"
+              name="lastname"
               ngModel
               required
             />
@@ -68,8 +68,10 @@
               ngModel
               required
             />
+
             <label>Password:</label>
             <input
+              [(ngModel)]="password"
               [type]="isShowPassword ? 'text' : 'password'"
               class="form-control form control-sm"
               name="password"
@@ -77,12 +79,13 @@
               required
             />
 
-            <label *ngIf="!isRegistered">Re-type password:</label>
+            <label *ngIf="!isRegistered">Confirm password:</label>
             <input
               *ngIf="!isRegistered"
+              [(ngModel)]="confirmPassword"
               [type]="isShowPassword ? 'text' : 'password'"
               class="form-control form control-sm"
-              name="repassword"
+              name="confirmpassword"
               ngModel
               required
             />
@@ -103,7 +106,9 @@
               </button>
               <button
                 *ngIf="!isRegistered"
-                [disabled]="!formValues.form.valid"
+                [disabled]="
+                  !(formValues.form.valid && password == confirmPassword)
+                "
                 class="btn btn-success"
                 type="submit"
               >

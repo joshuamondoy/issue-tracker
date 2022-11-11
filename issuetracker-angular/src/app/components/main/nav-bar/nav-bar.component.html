@@ -34,11 +34,13 @@
               class="nav-link active"
               aria-current="page"
               routerLink="open-issues"
-              >Open issues</a
-            >
+              >Open issues({{ numberOfOpenTickets }})
+            </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="closed-issues">Closed issues</a>
+            <a class="nav-link" routerLink="closed-issues"
+              >Closed issues({{ numberOfClosedTickets }})</a
+            >
           </li>
           <li class="nav-item">
             <!-- trigger modal -->
@@ -50,7 +52,7 @@
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/home">Logout</a>
+            <a class="nav-link" routerLink="/issues/home">Logout</a>
           </li>
         </ul>
         <form class="d-flex mt-3" role="search">
@@ -113,7 +115,7 @@
             [(ngModel)]="unassign"
             class="form-select"
             aria-label="Default select example"
-            name="assignedTo"
+            name="assignedto"
             ngModel
           >
             <option value="null"></option>

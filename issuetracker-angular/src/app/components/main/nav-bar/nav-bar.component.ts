@@ -16,11 +16,19 @@ export class NavBarComponent implements OnInit {
   @ViewChild('formValues')
   ticketForm!: NgForm;
   unassign: any = null;
+  numberOfOpenTickets: number = 0;
+  numberOfClosedTickets: number = 0;
   constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
     this.httpService.getUsers().subscribe((res) => {
       this.users = res;
+    });
+    this.httpService.numberOfOpenTickets.subscribe((res) => {
+      this.numberOfOpenTickets = res;
+    });
+    this.httpService.numberOfClosedTickets.subscribe((res) => {
+      this.numberOfClosedTickets = res;
     });
   }
 
@@ -41,7 +49,7 @@ export class NavBarComponent implements OnInit {
       value.description,
       this.dateNow,
       'Joshua Mondoy',
-      value.assignedTo == null ? 'Unassign' : value.assignedTo,
+      value.assignedto == null ? 'Unassign' : value.assignedto,
       'Open',
       '',
       '',
