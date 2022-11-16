@@ -34,11 +34,15 @@
               class="nav-link active"
               aria-current="page"
               routerLink="open-issues"
+              data-bs-dismiss="offcanvas"
               >Open issues({{ numberOfOpenTickets }})
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="closed-issues"
+            <a
+              class="nav-link"
+              routerLink="closed-issues"
+              data-bs-dismiss="offcanvas"
               >Closed issues({{ numberOfClosedTickets }})</a
             >
           </li>
@@ -52,7 +56,12 @@
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/issues/home">Logout</a>
+            <a
+              class="nav-link"
+              routerLink="/issues/home"
+              data-bs-dismiss="offcanvas"
+              >Logout</a
+            >
           </li>
         </ul>
         <form class="d-flex mt-3" role="search">

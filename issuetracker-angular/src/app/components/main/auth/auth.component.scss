@@ -22,6 +22,7 @@
   border: none;
   width: 25rem;
   margin: 0%;
+  padding: 0 1rem;
   .alert {
     padding: 0;
     margin: 0;
@@ -55,9 +56,7 @@ fa-icon {
 .hide-form {
   display: none !important;
 }
-// .ng-invalid:not(form) {
-//   border-right: 5px solid #a94442;
-// }
+
 @media (max-width: 450px) {
   .card {
     width: auto;

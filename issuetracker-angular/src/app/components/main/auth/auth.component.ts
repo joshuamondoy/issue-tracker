@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faCaretLeft } from '@fortawesome/free-solid-svg-icons';
 import { User } from 'src/app/models/user.model';
@@ -7,10 +8,10 @@ import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  templateUrl: './auth.component.html',
+  styleUrls: ['./auth.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class AuthComponent implements OnInit {
   faArrowLeft = faArrowLeft;
   faCaretLeft = faCaretLeft;
   isRegistered: boolean = true;
@@ -21,7 +22,7 @@ export class LoginComponent implements OnInit {
   signupPassword!: boolean;
   confirmPassword!: boolean;
 
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -30,6 +31,9 @@ export class LoginComponent implements OnInit {
     let formValue = formValues.value;
 
     if (this.isRegistered) {
+      console.log(formValue);
+
+      this.router.navigate(['issues/open-issues']);
     } else {
       user = new User(
         0,
@@ -40,6 +44,9 @@ export class LoginComponent implements OnInit {
       );
 
       this.httpService.addUser(user).subscribe();
+      alert('Succesfully registered!');
+      formValues.reset();
+      this.isRegistered = !this.isRegistered;
     }
   }
 

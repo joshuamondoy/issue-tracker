@@ -57,6 +57,7 @@ export class NavBarComponent implements OnInit {
     );
 
     this.httpService.createTicket(newIssue).subscribe();
+    alert('Issue added!');
     this.ticketForm.reset();
   }
 }

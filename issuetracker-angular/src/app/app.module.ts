@@ -12,7 +12,7 @@ import { OpenIssuesComponent } from './components/main/open-issues/open-issues.c
 import { ClosedIssuesComponent } from './components/main/closed-issues/closed-issues.component';
 import { ViewIssueComponent } from './components/main/open-issues/view-issue/view-issue.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { LoginComponent } from './components/main/login/login.component';
+import { AuthComponent } from './components/main/auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { LoginComponent } from './components/main/login/login.component';
     OpenIssuesComponent,
     ClosedIssuesComponent,
     ViewIssueComponent,
-    LoginComponent,
+    AuthComponent,
   ],
   imports: [
     BrowserModule,
