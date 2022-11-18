@@ -23,11 +23,22 @@
   width: 25rem;
   margin: 0%;
   padding: 0 1rem;
+  .login-form {
+    .form-control {
+      margin-top: 1rem;
+    }
+  }
+  .sign-up-form {
+    .form-control {
+      margin-top: 1rem;
+    }
+  }
   .alert {
     padding: 0;
     margin: 0;
     font-style: italic;
     color: red;
+    font-size: smaller;
   }
 }
 .sign-up-btn {

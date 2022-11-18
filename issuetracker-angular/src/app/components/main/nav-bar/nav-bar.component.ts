@@ -21,9 +21,11 @@ export class NavBarComponent implements OnInit {
   constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
-    this.httpService.getUsers().subscribe((res) => {
-      this.users = res;
+    this.getUsers();
+    this.httpService.refresh$.subscribe(() => {
+      this.getUsers();
     });
+
     this.httpService.numberOfOpenTickets.subscribe((res) => {
       this.numberOfOpenTickets = res;
     });
@@ -32,6 +34,11 @@ export class NavBarComponent implements OnInit {
     });
   }
 
+  private getUsers() {
+    this.httpService.getUsers().subscribe((res) => {
+      this.users = res;
+    });
+  }
   createTicketNumber() {
     return (this.ticketNumber = (
       'RITM' + Math.floor(Math.random() * 10000000000)

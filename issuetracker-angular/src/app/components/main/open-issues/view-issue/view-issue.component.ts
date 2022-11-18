@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Ticket } from 'src/app/models/ticket.model';
 import { User } from 'src/app/models/user.model';
 import { HttpService } from 'src/app/services/http.service';
@@ -32,7 +32,8 @@ export class ViewIssueComponent implements OnInit {
   constructor(
     private httpService: HttpService,
     private activatedRoute: ActivatedRoute,
-    private utilityService: UtilityService
+    private utilityService: UtilityService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -101,5 +102,6 @@ export class ViewIssueComponent implements OnInit {
       );
     }
     this.httpService.updateTicket(this.ticketId, ticket!).subscribe();
+    this.editMode = false;
   }
 }

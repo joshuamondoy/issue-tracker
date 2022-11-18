@@ -40,7 +40,6 @@
           </div>
           <form #formValues="ngForm" (ngSubmit)="onSubmit(formValues)">
             <div *ngIf="isRegistered" class="login-form">
-              <label>Email:</label>
               <input
                 type="email"
                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
@@ -48,15 +47,16 @@
                 name="loginemail"
                 ngModel
                 required
+                placeholder="Email"
               />
 
-              <label>Password:</label>
               <input
                 [type]="isShowPassword ? 'text' : 'password'"
                 class="form-control form control-sm"
                 name="loginpassword"
                 ngModel
                 required
+                placeholder="Password"
               />
               <input
                 type="checkbox"
@@ -78,25 +78,24 @@
               </div>
             </div>
             <div *ngIf="!isRegistered" class="sign-up-form">
-              <label>First name:</label>
               <input
                 type="text"
                 class="form-control form control-sm"
                 name="firstname"
                 ngModel
                 required
+                placeholder="First name"
               />
 
-              <label>Last name:</label>
               <input
                 type="text"
                 class="form-control form control-sm"
                 name="lastname"
                 ngModel
                 required
+                placeholder="Last name"
               />
 
-              <label>Email:</label>
               <input
                 type="email"
                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
@@ -104,9 +103,9 @@
                 name="signupemail"
                 ngModel
                 required
+                placeholder="Email"
               />
 
-              <label>Password:</label>
               <input
                 [(ngModel)]="signupPassword"
                 [type]="isShowPassword ? 'text' : 'password'"
@@ -114,9 +113,9 @@
                 name="signuppassword"
                 ngModel
                 required
+                placeholder="Password"
               />
 
-              <label>Confirm password:</label>
               <input
                 [(ngModel)]="confirmPassword"
                 [type]="isShowPassword ? 'text' : 'password'"
@@ -124,6 +123,7 @@
                 name="confirmpassword"
                 ngModel
                 required
+                placeholder="Confirm password"
               />
 
               <input
