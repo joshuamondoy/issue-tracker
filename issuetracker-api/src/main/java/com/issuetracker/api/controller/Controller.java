@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.issuetracker.api.entity.Ticket;
 import com.issuetracker.api.entity.User;
-import com.issuetracker.api.repository.TicketRepository;
-import com.issuetracker.api.repository.UserRepository;
 import com.issuetracker.api.service.TicketService;
 import com.issuetracker.api.service.UserService;
 
@@ -27,7 +25,7 @@ import com.issuetracker.api.service.UserService;
 @RestController
 @RequestMapping("/issuetracker-api") 
 public class Controller {
-
+//@Autowired is like injecting the service to class
 	@Autowired
 	private UserService userService;
 
@@ -40,12 +38,26 @@ public class Controller {
 	public List<User> getUsers() {
 		return userService.getUsers();
 	}
-
+	
+	@GetMapping("/users/{email}")
+	public User getUser(@PathVariable String email) {
+		return userService.getUser(email);
+	}
 
 	@PostMapping(path = "/add-user")
 	public User addUser(@RequestBody User user) {
 		return userService.addUser(user);
 	}
+	
+	@GetMapping(path="/login/{email}/{password}")
+	public int login(@PathVariable("email") String email, @PathVariable("password") String password) {
+		int flag = userService.authUser(email, password);
+		if (flag == 0) {
+			return 0;
+		}
+		return flag;
+	}
+	
 	
 
 	// ticket
@@ -55,11 +67,11 @@ public class Controller {
 		return ticketService.getTickets();
 	}
 
-	@GetMapping("/tickets/{id}")
+	@GetMapping("/get-ticket/{id}")
 	public Ticket getTiecketById(@PathVariable int id) {
 		return ticketService.getTicket(id);
 	}
-
+	
 	@PostMapping("/tickets/add-ticket")
 	public Ticket addTicket(@RequestBody Ticket ticket) {
 		return ticketService.addTicket(ticket);

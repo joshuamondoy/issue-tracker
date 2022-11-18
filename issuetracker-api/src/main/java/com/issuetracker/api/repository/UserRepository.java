@@ -7,5 +7,6 @@ import com.issuetracker.api.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer>{
-//	public int login(String email, String password)
+
+	public User findByEmail(String email);
 }
