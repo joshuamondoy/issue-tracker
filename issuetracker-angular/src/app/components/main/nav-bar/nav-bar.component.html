@@ -4,6 +4,7 @@
       ><img class="logo" src="../../../../assets/logo.png" alt="" srcset=""
     /></a>
     <button
+      *ngIf="isLoggedIn"
       class="navbar-toggler"
       type="button"
       data-bs-toggle="offcanvas"
@@ -49,6 +50,7 @@
           <li class="nav-item">
             <!-- trigger modal -->
             <a
+              *ngIf="isLoggedIn"
               class="nav-link"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
@@ -57,9 +59,11 @@
           </li>
           <li class="nav-item">
             <a
+              *ngIf="isLoggedIn"
               class="nav-link"
               routerLink="/issues/home"
               data-bs-dismiss="offcanvas"
+              (click)="logOut()"
               >Logout</a
             >
           </li>

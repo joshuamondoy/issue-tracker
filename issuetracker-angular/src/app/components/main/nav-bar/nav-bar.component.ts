@@ -18,6 +18,7 @@ export class NavBarComponent implements OnInit {
   unassign: any = null;
   numberOfOpenTickets: number = 0;
   numberOfClosedTickets: number = 0;
+  isLoggedIn!: number;
   constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
@@ -25,19 +26,24 @@ export class NavBarComponent implements OnInit {
     this.httpService.refresh$.subscribe(() => {
       this.getUsers();
     });
+    this.httpService.isLoggedIn.subscribe((res) => (this.isLoggedIn = res));
 
-    this.httpService.numberOfOpenTickets.subscribe((res) => {
-      this.numberOfOpenTickets = res;
-    });
-    this.httpService.numberOfClosedTickets.subscribe((res) => {
-      this.numberOfClosedTickets = res;
-    });
+    this.httpService.numberOfOpenTickets.subscribe(
+      (res) => (this.numberOfOpenTickets = res)
+    );
+    this.httpService.numberOfClosedTickets.subscribe(
+      (res) => (this.numberOfClosedTickets = res)
+    );
   }
 
   private getUsers() {
     this.httpService.getUsers().subscribe((res) => {
       this.users = res;
     });
+  }
+
+  logOut() {
+    this.httpService.isLoggedIn.next(0);
   }
   createTicketNumber() {
     return (this.ticketNumber = (

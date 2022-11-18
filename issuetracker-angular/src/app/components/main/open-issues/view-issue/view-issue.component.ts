@@ -29,23 +29,23 @@ export class ViewIssueComponent implements OnInit {
   users!: User[];
   editMode: boolean = false;
   closeMode: boolean = false;
+  isLoggedIn!: number;
   constructor(
     private httpService: HttpService,
     private activatedRoute: ActivatedRoute,
-    private utilityService: UtilityService,
-    private router: Router
+    private utilityService: UtilityService
   ) {}
 
   ngOnInit(): void {
-    this.activatedRoute.params.subscribe((res) => {
-      this.ticketId = parseInt(res['id']);
-    });
+    this.activatedRoute.params.subscribe(
+      (res) => (this.ticketId = parseInt(res['id']))
+    );
     this.getTickets();
     this.getUsers();
-    this.httpService.refresh$.subscribe(() => {
-      this.getTickets();
-    });
+    this.httpService.refresh$.subscribe(() => this.getTickets());
+    this.httpService.isLoggedIn.subscribe((res) => (this.isLoggedIn = res));
   }
+
   private getTickets() {
     this.httpService.getTicket(this.ticketId).subscribe((res) => {
       this.ticket = res;
@@ -65,7 +65,7 @@ export class ViewIssueComponent implements OnInit {
     this.editMode = !this.editMode;
   }
   toggleClose() {
-    this.closeMode = !this.closeMode;
+    this.editMode = !this.editMode;
   }
   cancelClose() {
     this.closeMode = !this.closeMode;

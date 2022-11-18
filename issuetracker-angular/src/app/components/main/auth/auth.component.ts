@@ -22,10 +22,13 @@ export class AuthComponent implements OnInit {
   signupPassword!: boolean;
   confirmPassword!: boolean;
   isValidCredentials: boolean = false;
+  isLoggedIn: number = 0;
 
   constructor(private httpService: HttpService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.httpService.isLoggedIn.subscribe((res) => (this.isLoggedIn = res));
+  }
 
   onSubmit(formValues: NgForm) {
     let user;
@@ -36,9 +39,8 @@ export class AuthComponent implements OnInit {
         this.httpService
           .authUser(formValue.loginEmail, formValue.loginPassword)
           .subscribe((res) => {
-            console.log(res);
-
-            if (res == 1) {
+            this.httpService.isLoggedIn.next(res);
+            if (res) {
               this.router.navigate(['issues/open-issues']);
             } else {
               this.toggleErrorMsg();
@@ -79,5 +81,13 @@ export class AuthComponent implements OnInit {
 
   showPassword() {
     this.isShowPassword = !this.isShowPassword;
+  }
+  viewIssues() {
+    console.log(this.isLoggedIn);
+
+    this.isLoggedIn
+      ? this.router.navigate(['/issues/open-issues'])
+      : alert('Please login first'),
+      this.toggleForm();
   }
 }

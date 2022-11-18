@@ -15,20 +15,18 @@ export class OpenIssuesComponent implements OnInit {
   faUserXmark = faUserXmark;
   users!: User[];
   tickets!: Ticket[];
+  isLoggedIn!: number;
   constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
     this.getTickets();
     this.getUsers();
 
-    this.httpService.refresh$.subscribe(() => {
-      this.getTickets();
-    });
+    this.httpService.refresh$.subscribe(() => this.getTickets());
+    this.httpService.isLoggedIn.subscribe((res) => (this.isLoggedIn = res));
   }
   private getUsers() {
-    this.httpService.getUsers().subscribe((res) => {
-      this.users = res;
-    });
+    this.httpService.getUsers().subscribe((res) => (this.users = res));
   }
   private getTickets() {
     this.httpService.getOpenTickets().subscribe((res) => {

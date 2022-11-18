@@ -13,6 +13,7 @@ export class HttpService {
   private _refresh$ = new Subject<void>();
   public numberOfOpenTickets = new Subject<number>();
   public numberOfClosedTickets = new Subject<number>();
+  public isLoggedIn = new Subject<number>();
   constructor(private httpClient: HttpClient) {}
 
   get refresh$() {

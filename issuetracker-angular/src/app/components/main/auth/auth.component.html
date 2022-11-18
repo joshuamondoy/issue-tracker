@@ -5,8 +5,8 @@
       class="col d-flex justify-content-center flex-column align-items-center p-5"
     >
       <div class="mb-1">
-        <button class="view-issues-btn" routerLink="/issues/open-issues">
-          <fa-icon [icon]="faCaretLeft" (click)="toggleRegister()"></fa-icon>
+        <button class="view-issues-btn" (click)="viewIssues()">
+          <fa-icon [icon]="faCaretLeft"></fa-icon>
           View all issues
         </button>
         <h1 class="title">Issue tracker</h1>
