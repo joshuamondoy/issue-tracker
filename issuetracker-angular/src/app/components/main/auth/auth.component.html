@@ -40,24 +40,30 @@
           </div>
           <form #formValues="ngForm" (ngSubmit)="onSubmit(formValues)">
             <div *ngIf="isRegistered" class="login-form">
-              <input
-                type="email"
-                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-                class="form-control form control-sm"
-                name="loginemail"
-                ngModel
-                required
-                placeholder="Email"
-              />
-
-              <input
-                [type]="isShowPassword ? 'text' : 'password'"
-                class="form-control form control-sm"
-                name="loginpassword"
-                ngModel
-                required
-                placeholder="Password"
-              />
+              <div class="form-floating">
+                <i class="fa-solid fa-envelope fa-lg"></i>
+                <input
+                  type="email"
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                  class="form-control form control-sm"
+                  name="loginEmail"
+                  ngModel
+                  required
+                  placeholder="Email"
+                />
+                <label for="floatingName">Email</label>
+              </div>
+              <div class="form-floating">
+                <input
+                  [type]="isShowPassword ? 'text' : 'password'"
+                  class="form-control form control-sm"
+                  name="loginPassword"
+                  ngModel
+                  required
+                  placeholder="Password"
+                />
+                <label for="floatingName">Password</label>
+              </div>
               <input
                 type="checkbox"
                 (click)="showPassword()"
@@ -65,6 +71,9 @@
                 [ngModelOptions]="{ standalone: true }"
               />
               Show Password
+              <p *ngIf="isValidCredentials" class="alert">
+                Invalid username or password!
+              </p>
               <div class="d-flex justify-content-center flex-column mt-4">
                 <button class="btn btn-success" type="submit">Submit</button>
                 <p *ngIf="isRegistered" class="align-self-center">
@@ -81,7 +90,7 @@
               <input
                 type="text"
                 class="form-control form control-sm"
-                name="firstname"
+                name="firstName"
                 ngModel
                 required
                 placeholder="First name"
@@ -90,7 +99,7 @@
               <input
                 type="text"
                 class="form-control form control-sm"
-                name="lastname"
+                name="lastName"
                 ngModel
                 required
                 placeholder="Last name"
@@ -100,7 +109,7 @@
                 type="email"
                 pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
                 class="form-control form control-sm"
-                name="signupemail"
+                name="signupEmail"
                 ngModel
                 required
                 placeholder="Email"
@@ -110,7 +119,7 @@
                 [(ngModel)]="signupPassword"
                 [type]="isShowPassword ? 'text' : 'password'"
                 class="form-control form control-sm"
-                name="signuppassword"
+                name="signupPassword"
                 ngModel
                 required
                 placeholder="Password"
@@ -120,7 +129,7 @@
                 [(ngModel)]="confirmPassword"
                 [type]="isShowPassword ? 'text' : 'password'"
                 class="form-control form control-sm"
-                name="confirmpassword"
+                name="confirmPassword"
                 ngModel
                 required
                 placeholder="Confirm password"

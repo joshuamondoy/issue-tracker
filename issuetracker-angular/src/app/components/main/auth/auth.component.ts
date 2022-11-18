@@ -21,6 +21,7 @@ export class AuthComponent implements OnInit {
   isPasswordMatch!: boolean;
   signupPassword!: boolean;
   confirmPassword!: boolean;
+  isValidCredentials: boolean = false;
 
   constructor(private httpService: HttpService, private router: Router) {}
 
@@ -31,16 +32,28 @@ export class AuthComponent implements OnInit {
     let formValue = formValues.value;
 
     if (this.isRegistered) {
-      console.log(formValue);
+      if (formValue.loginEmail != '' && formValue.loginPassword != '') {
+        this.httpService
+          .authUser(formValue.loginEmail, formValue.loginPassword)
+          .subscribe((res) => {
+            console.log(res);
 
-      this.router.navigate(['issues/open-issues']);
+            if (res == 1) {
+              this.router.navigate(['issues/open-issues']);
+            } else {
+              this.toggleErrorMsg();
+            }
+          });
+      } else {
+        this.toggleErrorMsg();
+      }
     } else {
       user = new User(
         0,
-        formValue.firstname,
-        formValue.lastname,
-        formValue.signupemail,
-        formValue.signuppassword
+        formValue.firstName,
+        formValue.lastName,
+        formValue.signupEmail,
+        formValue.signupPassword
       );
 
       this.httpService.addUser(user).subscribe();
@@ -50,6 +63,12 @@ export class AuthComponent implements OnInit {
     }
   }
 
+  toggleErrorMsg() {
+    this.isValidCredentials = !this.isValidCredentials;
+    setTimeout(() => {
+      this.isValidCredentials = !this.isValidCredentials;
+    }, 2000);
+  }
   toggleRegister() {
     this.isRegistered = !this.isRegistered;
   }

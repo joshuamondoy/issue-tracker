@@ -28,6 +28,8 @@ public class LoginAuthService {
 				// column number of email in table
 				if (rs.getString(4).equals(email) && rs.getString(5).equals(password)) {
 					flag = 1;
+					
+			
 				} else {
 					System.out.println("Invalid email or password!");
 					flag = 0;

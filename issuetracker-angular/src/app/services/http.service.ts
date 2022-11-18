@@ -20,7 +20,9 @@ export class HttpService {
   }
 
   authUser(email: string, password: string): Observable<number> {
-    return this.httpClient.get<number>(`${this.url}/${email}/${password}`);
+    return this.httpClient.get<number>(
+      `${this.url}/login/${email}/${password}`
+    );
   }
   getUsers(): Observable<User[]> {
     return this.httpClient.get<User[]>(`${this.url}/users`);
