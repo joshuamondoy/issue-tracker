@@ -18,6 +18,8 @@ public class LoginAuthService {
 		connection = DbUtility.getConnection();
 	}
 
+	// the flaws of this is when user input random characters as email it will return 1 for some reason
+	// so in our frontend I use form validation to validate the input email before passing the input as email argument
 	public int loginValidation(String email, String password) {
 		try {
 			PreparedStatement statement = connection
@@ -27,6 +29,7 @@ public class LoginAuthService {
 			while (rs.next()) {
 				// column number of email in table
 				if (rs.getString(4).equals(email) && rs.getString(5).equals(password)) {
+					System.out.println("Valid email and password");
 					flag = 1;
 					
 			
@@ -35,6 +38,7 @@ public class LoginAuthService {
 					flag = 0;
 				}
 			}
+System.out.println(flag);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

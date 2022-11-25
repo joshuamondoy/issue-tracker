@@ -149,6 +149,7 @@
           <div class="d-flex justify-content-end">
             <button
               *ngIf="!editMode && !closeMode"
+              (click)="backToIssues()"
               class="back-btn"
               routerLink="/issues/open-issues"
             >

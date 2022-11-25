@@ -4,6 +4,7 @@ import { User } from 'src/app/models/user.model';
 import { HttpService } from 'src/app/services/http.service';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faUserXmark } from '@fortawesome/free-solid-svg-icons';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-open-issues',
@@ -15,15 +16,12 @@ export class OpenIssuesComponent implements OnInit {
   faUserXmark = faUserXmark;
   users!: User[];
   tickets!: Ticket[];
-  isLoggedIn!: number;
   constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
     this.getTickets();
     this.getUsers();
-
-    this.httpService.refresh$.subscribe(() => this.getTickets());
-    this.httpService.isLoggedIn.subscribe((res) => (this.isLoggedIn = res));
+    this.refreshData();
   }
   private getUsers() {
     this.httpService.getUsers().subscribe((res) => (this.users = res));
@@ -31,7 +29,9 @@ export class OpenIssuesComponent implements OnInit {
   private getTickets() {
     this.httpService.getOpenTickets().subscribe((res) => {
       this.tickets = res.reverse();
-      this.httpService.numberOfOpenTickets.next(res.length);
     });
+  }
+  private refreshData() {
+    this.httpService.refresh$.subscribe(() => this.getTickets());
   }
 }

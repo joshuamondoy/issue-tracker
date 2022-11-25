@@ -11,15 +11,12 @@ import { User } from '../models/user.model';
 export class HttpService {
   private url = 'http://localhost:8080/issuetracker-api';
   private _refresh$ = new Subject<void>();
-  public numberOfOpenTickets = new Subject<number>();
-  public numberOfClosedTickets = new Subject<number>();
-  public isLoggedIn = new Subject<number>();
+  public userEmail = new Subject<string>();
   constructor(private httpClient: HttpClient) {}
 
   get refresh$() {
     return this._refresh$;
   }
-
   authUser(email: string, password: string): Observable<number> {
     return this.httpClient.get<number>(
       `${this.url}/login/${email}/${password}`
@@ -28,7 +25,9 @@ export class HttpService {
   getUsers(): Observable<User[]> {
     return this.httpClient.get<User[]>(`${this.url}/users`);
   }
-
+  getUser(email: string): Observable<User> {
+    return this.httpClient.get<User>(`${this.url}/users/${email}`);
+  }
   getOpenTickets(): Observable<Ticket[]> {
     return this.httpClient
       .get<Ticket[]>(`${this.url}/tickets`)
@@ -39,11 +38,9 @@ export class HttpService {
       .get<Ticket[]>(`${this.url}/tickets`)
       .pipe(map((res) => res.filter((res) => res.status == 'Closed')));
   }
-
   getTicket(ticketId: number): Observable<Ticket> {
     return this.httpClient.get<Ticket>(`${this.url}/get-ticket/${ticketId}`);
   }
-
   createTicket(ticket: Ticket) {
     return this.httpClient.post(`${this.url}/tickets/add-ticket`, ticket).pipe(
       tap(() => {
@@ -65,7 +62,6 @@ export class HttpService {
       })
     );
   }
-
   deleteTicket(id: number) {
     return this.httpClient.delete(`${this.url}/tickets/${id}`).pipe(
       tap(() => {

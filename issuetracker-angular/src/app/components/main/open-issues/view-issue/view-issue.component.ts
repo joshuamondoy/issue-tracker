@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Ticket } from 'src/app/models/ticket.model';
 import { User } from 'src/app/models/user.model';
 import { HttpService } from 'src/app/services/http.service';
@@ -25,11 +25,12 @@ export class ViewIssueComponent implements OnInit {
 
   ticket?: Ticket;
   ticketId!: number;
-
+  userEmail!: string;
   users!: User[];
+  user!: User;
+  userFullName!: string;
   editMode: boolean = false;
   closeMode: boolean = false;
-  isLoggedIn!: number;
   constructor(
     private httpService: HttpService,
     private activatedRoute: ActivatedRoute,
@@ -37,16 +38,19 @@ export class ViewIssueComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getUseId();
+    this.getTicket();
+    this.getUsers();
+    this.getUser();
+    this.refreshData();
+    this.getUser();
+  }
+  private getUseId() {
     this.activatedRoute.params.subscribe(
       (res) => (this.ticketId = parseInt(res['id']))
     );
-    this.getTickets();
-    this.getUsers();
-    this.httpService.refresh$.subscribe(() => this.getTickets());
-    this.httpService.isLoggedIn.subscribe((res) => (this.isLoggedIn = res));
   }
-
-  private getTickets() {
+  private getTicket() {
     this.httpService.getTicket(this.ticketId).subscribe((res) => {
       this.ticket = res;
       this.ticketId = res.ticketId;
@@ -57,6 +61,15 @@ export class ViewIssueComponent implements OnInit {
       this.users = res;
     });
   }
+  private refreshData() {
+    this.httpService.refresh$.subscribe(() => this.getTicket());
+  }
+  private getUser() {
+    this.utilityService.userEmail.subscribe((res) => (this.userEmail = res));
+    this.httpService
+      .getUser(this.userEmail)
+      .subscribe((res) => (this.user = res));
+  }
 
   toggleUpdate() {
     this.editMode = !this.editMode;
@@ -65,24 +78,28 @@ export class ViewIssueComponent implements OnInit {
     this.editMode = !this.editMode;
   }
   toggleClose() {
-    this.editMode = !this.editMode;
+    this.closeMode = !this.closeMode;
   }
   cancelClose() {
     this.closeMode = !this.closeMode;
   }
-  onUpdateTicket(formValues: NgForm) {
-    const formValue = formValues.value;
+  backToIssues() {
+    this.utilityService.isLoggedIn.next(1);
+  }
+  onUpdateTicket(formFields: NgForm) {
+    const formField = formFields.value;
+    const subject = formField.subject;
     let ticket: Ticket;
     if (this.editMode) {
       this.editMode = !this.editMode;
       ticket = new Ticket(
         this.ticketId,
         this.ticket!.ticketNumber,
-        formValue.subject,
-        formValue.description,
+        subject.charAt(0).toUpperCase() + subject.slice(1),
+        formField.description,
         this.utilityService.getDateNow(),
         this.ticket!.openedBy,
-        this.ticket!.assignedTo,
+        formField.assignedto == '' ? 'Unassign' : formField.assignedto,
         this.utilityService.getStatus(true)
       );
     } else if (this.closeMode) {
@@ -98,7 +115,7 @@ export class ViewIssueComponent implements OnInit {
         this.utilityService.getStatus(false),
         this.utilityService.getDateNow(),
         'Joshua',
-        formValue.resolution
+        formField.resolution
       );
     }
     this.httpService.updateTicket(this.ticketId, ticket!).subscribe();

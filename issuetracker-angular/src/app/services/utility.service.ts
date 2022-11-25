@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Ticket } from '../models/ticket.model';
+import { Subject } from 'rxjs';
+import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UtilityService {
-  constructor() {}
+  public isLoggedIn = new Subject<number>();
+  public userEmail = new Subject<string>();
+
+  constructor(private httpService: HttpService) {}
 
   getDateNow() {
     return new Date().toISOString().split('T')[0];
   }
   getStatus(status: boolean) {
     return status ? 'Open' : 'Closed';
-  }
-
-  assignTicket(user?: string) {
-    return user == '' ? 'Unassign' : user;
   }
 }

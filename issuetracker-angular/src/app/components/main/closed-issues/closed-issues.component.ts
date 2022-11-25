@@ -29,7 +29,6 @@ export class ClosedIssuesComponent implements OnInit {
   private getTickets() {
     this.httpService.getClosedTickets().subscribe((res) => {
       this.tickets = res.reverse();
-      this.httpService.numberOfClosedTickets.next(res.length);
     });
   }
 
@@ -45,7 +44,7 @@ export class ClosedIssuesComponent implements OnInit {
         res.description,
         this.utilityService.getDateNow(),
         'Joshua',
-        this.utilityService.assignTicket(res.assignedTo),
+        res.assignedTo,
         this.utilityService.getStatus(true)
       );
       this.httpService.updateTicket(res.ticketId, reopenedTicket).subscribe();

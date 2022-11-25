@@ -5,6 +5,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { faCaretLeft } from '@fortawesome/free-solid-svg-icons';
 import { User } from 'src/app/models/user.model';
 import { HttpService } from 'src/app/services/http.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-login',
@@ -24,23 +25,25 @@ export class AuthComponent implements OnInit {
   isValidCredentials: boolean = false;
   isLoggedIn: number = 0;
 
-  constructor(private httpService: HttpService, private router: Router) {}
+  constructor(
+    private httpService: HttpService,
+    private utilityService: UtilityService,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {
-    this.httpService.isLoggedIn.subscribe((res) => (this.isLoggedIn = res));
-  }
+  ngOnInit(): void {}
 
-  onSubmit(formValues: NgForm) {
+  onSubmit(formFields: NgForm) {
     let user;
-    let formValue = formValues.value;
-
+    let formField = formFields.value;
     if (this.isRegistered) {
-      if (formValue.loginEmail != '' && formValue.loginPassword != '') {
+      if (formField.loginEmail != '' && formField.loginPassword != '') {
         this.httpService
-          .authUser(formValue.loginEmail, formValue.loginPassword)
+          .authUser(formField.loginEmail, formField.loginPassword)
           .subscribe((res) => {
-            this.httpService.isLoggedIn.next(res);
+            this.utilityService.isLoggedIn.next(res);
             if (res) {
+              this.utilityService.userEmail.next(formField.loginEmail);
               this.router.navigate(['issues/open-issues']);
             } else {
               this.toggleErrorMsg();
@@ -50,21 +53,22 @@ export class AuthComponent implements OnInit {
         this.toggleErrorMsg();
       }
     } else {
+      const firstName = formField.firstName;
+      const lastName = formField.lastName;
+
       user = new User(
         0,
-        formValue.firstName,
-        formValue.lastName,
-        formValue.signupEmail,
-        formValue.signupPassword
+        firstName.charAt(0).toUpperCase() + firstName.slice(1),
+        lastName.charAt(0).toUpperCase() + lastName.slice(1),
+        formField.signupEmail,
+        formField.signupPassword
       );
-
       this.httpService.addUser(user).subscribe();
       alert('Succesfully registered!');
-      formValues.reset();
+      formFields.reset();
       this.isRegistered = !this.isRegistered;
     }
   }
-
   toggleErrorMsg() {
     this.isValidCredentials = !this.isValidCredentials;
     setTimeout(() => {
@@ -83,8 +87,6 @@ export class AuthComponent implements OnInit {
     this.isShowPassword = !this.isShowPassword;
   }
   viewIssues() {
-    console.log(this.isLoggedIn);
-
     this.isLoggedIn
       ? this.router.navigate(['/issues/open-issues'])
       : alert('Please login first'),

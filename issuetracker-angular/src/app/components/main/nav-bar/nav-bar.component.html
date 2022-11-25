@@ -4,7 +4,7 @@
       ><img class="logo" src="../../../../assets/logo.png" alt="" srcset=""
     /></a>
     <button
-      *ngIf="isLoggedIn"
+      [ngClass]="isLoggedIn ? '' : 'hide-menu-toggle'"
       class="navbar-toggler"
       type="button"
       data-bs-toggle="offcanvas"
@@ -50,7 +50,6 @@
           <li class="nav-item">
             <!-- trigger modal -->
             <a
-              *ngIf="isLoggedIn"
               class="nav-link"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
@@ -59,7 +58,6 @@
           </li>
           <li class="nav-item">
             <a
-              *ngIf="isLoggedIn"
               class="nav-link"
               routerLink="/issues/home"
               data-bs-dismiss="offcanvas"
@@ -83,7 +81,7 @@
 </nav>
 
 <!-- Modal -->
-<form #formValues="ngForm" (ngSubmit)="onSubmit(formValues)">
+<form #formFields="ngForm" (ngSubmit)="onSubmit(formFields)">
   <div
     class="modal fade"
     id="exampleModal"
@@ -148,7 +146,7 @@
           <button
             type="submit"
             class="btn btn-primary"
-            [disabled]="!formValues.form.valid"
+            [disabled]="!formFields.form.valid"
           >
             Submit
           </button>

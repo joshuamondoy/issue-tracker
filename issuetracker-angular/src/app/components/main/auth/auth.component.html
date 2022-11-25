@@ -38,7 +38,7 @@
             <h3 class="card-title" *ngIf="isRegistered">Login</h3>
             <h3 class="card-title" *ngIf="!isRegistered">Sign-up</h3>
           </div>
-          <form #formValues="ngForm" (ngSubmit)="onSubmit(formValues)">
+          <form #formFields="ngForm" (ngSubmit)="onSubmit(formFields)">
             <div *ngIf="isRegistered" class="login-form">
               <div class="form-floating">
                 <i class="fa-solid fa-envelope fa-lg"></i>
@@ -75,7 +75,15 @@
                 Invalid username or password!
               </p>
               <div class="d-flex justify-content-center flex-column mt-4">
-                <button class="btn btn-success" type="submit">Submit</button>
+                <button
+                  class="btn btn-success"
+                  type="submit"
+                  [disabled]="
+                    !formFields.form.valid && !formFields.form.pristine
+                  "
+                >
+                  Submit
+                </button>
                 <p *ngIf="isRegistered" class="align-self-center">
                   Don't have an account?<button
                     class="sign-up-btn link"
@@ -144,8 +152,8 @@
               Show Password
               <p
                 *ngIf="
-                  formValues.form.invalid &&
-                  (formValues.form.dirty || formValues.form.touched)
+                  formFields.form.invalid &&
+                  (formFields.form.dirty || formFields.form.touched)
                 "
                 class="alert"
               >
@@ -159,7 +167,7 @@
                   *ngIf="!isRegistered"
                   [disabled]="
                     !(
-                      formValues.form.valid && signupPassword == confirmPassword
+                      formFields.form.valid && signupPassword == confirmPassword
                     )
                   "
                   class="btn btn-success"
