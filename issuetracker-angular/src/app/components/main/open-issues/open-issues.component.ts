@@ -16,6 +16,7 @@ export class OpenIssuesComponent implements OnInit {
   faUserXmark = faUserXmark;
   users!: User[];
   tickets!: Ticket[];
+  numberOfTickets: number = 0;
   constructor(private httpService: HttpService) {}
 
   ngOnInit(): void {
@@ -29,6 +30,7 @@ export class OpenIssuesComponent implements OnInit {
   private getTickets() {
     this.httpService.getOpenTickets().subscribe((res) => {
       this.tickets = res.reverse();
+      this.numberOfTickets = res.length;
     });
   }
   private refreshData() {

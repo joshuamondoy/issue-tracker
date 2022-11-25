@@ -15,6 +15,7 @@ export class ClosedIssuesComponent implements OnInit {
   faCircleMinus = faCircleMinus;
   tickets!: Ticket[];
   reopenedTicket!: Ticket;
+  numberOfTickets: number = 0;
   constructor(
     private httpService: HttpService,
     private utilityService: UtilityService
@@ -29,6 +30,7 @@ export class ClosedIssuesComponent implements OnInit {
   private getTickets() {
     this.httpService.getClosedTickets().subscribe((res) => {
       this.tickets = res.reverse();
+      this.numberOfTickets = res.length;
     });
   }
 

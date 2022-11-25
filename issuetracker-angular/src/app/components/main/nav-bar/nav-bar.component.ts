@@ -47,6 +47,7 @@ export class NavBarComponent implements OnInit {
     this.httpService.refresh$.subscribe(() => {
       this.getUsers();
       this.getNumberOfOpenTicket();
+      this.getNumberOfClosedTicket();
     });
   }
   private getUsers() {

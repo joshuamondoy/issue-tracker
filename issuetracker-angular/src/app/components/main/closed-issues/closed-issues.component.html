@@ -1,4 +1,4 @@
-<div class="container-fluid mt-4">
+<div class="container-fluid">
   <table class="table table-striped">
     <thead>
       <tr>
@@ -41,4 +41,7 @@
       </tr>
     </tbody>
   </table>
+  <div class="d-flex justify-content-center mt-5">
+    <h5 *ngIf="numberOfTickets == 0" class="text-muted">No closed issues</h5>
+  </div>
 </div>
