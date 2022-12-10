@@ -77,6 +77,7 @@ export class NavBarComponent implements OnInit {
     this.utilityService.isLoggedIn.next(0);
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('currentUserEmail');
+    localStorage.removeItem('currentUser');
     this.userName = '';
   }
   createTicketNumber() {
