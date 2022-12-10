@@ -41,10 +41,14 @@ export class AuthComponent implements OnInit {
         this.httpService
           .authUser(formField.loginEmail, formField.loginPassword)
           .subscribe((res) => {
-            this.utilityService.isLoggedIn.next(res);
             if (res) {
-              this.utilityService.userEmail.next(formField.loginEmail);
               this.router.navigate(['issues/open-issues']);
+              localStorage.setItem(
+                'currentUserEmail',
+                JSON.stringify(formField.loginEmail)
+              );
+              this.utilityService.isLoggedIn.next(res);
+              localStorage.setItem('isLoggedIn', res.toString());
             } else {
               this.toggleErrorMsg();
             }

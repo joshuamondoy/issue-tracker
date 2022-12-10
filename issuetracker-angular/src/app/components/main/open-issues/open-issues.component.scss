@@ -2,20 +2,18 @@
   display: flex;
   gap: 1rem;
   flex-direction: row;
-  overflow-x: auto;
   height: fit-content;
   padding: 0.5rem;
-  padding-top: 3rem;
+  padding-top: 4rem;
   .column {
     min-width: 18rem;
-    padding-top: 1rem;
   }
 }
 .ticket-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  height: 100%;
+  height: fit-content;
 }
 .card {
   margin-bottom: 0.5rem;

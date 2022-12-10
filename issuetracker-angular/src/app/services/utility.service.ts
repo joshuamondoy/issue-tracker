@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { HttpService } from './http.service';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UtilityService {
   public isLoggedIn = new Subject<number>();
-  public userEmail = new Subject<string>();
+  public loggedUser = new Subject<User>();
 
-  constructor(private httpService: HttpService) {}
+  constructor() {}
 
   getDateNow() {
     return new Date().toISOString().split('T')[0];

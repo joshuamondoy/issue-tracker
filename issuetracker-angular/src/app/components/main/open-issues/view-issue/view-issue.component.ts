@@ -25,12 +25,11 @@ export class ViewIssueComponent implements OnInit {
 
   ticket?: Ticket;
   ticketId!: number;
-  userEmail!: string;
   users!: User[];
-  user!: User;
-  userFullName!: string;
   editMode: boolean = false;
   closeMode: boolean = false;
+  userName?: string;
+  userEmail!: string;
   constructor(
     private httpService: HttpService,
     private activatedRoute: ActivatedRoute,
@@ -41,9 +40,8 @@ export class ViewIssueComponent implements OnInit {
     this.getUseId();
     this.getTicket();
     this.getUsers();
-    this.getUser();
     this.refreshData();
-    this.getUser();
+    this.getUserName();
   }
   private getUseId() {
     this.activatedRoute.params.subscribe(
@@ -64,13 +62,9 @@ export class ViewIssueComponent implements OnInit {
   private refreshData() {
     this.httpService.refresh$.subscribe(() => this.getTicket());
   }
-  private getUser() {
-    this.utilityService.userEmail.subscribe((res) => (this.userEmail = res));
-    this.httpService
-      .getUser(this.userEmail)
-      .subscribe((res) => (this.user = res));
+  private getUserName() {
+    this.userName = localStorage.getItem('currentUser')!;
   }
-
   toggleUpdate() {
     this.editMode = !this.editMode;
   }
@@ -114,9 +108,10 @@ export class ViewIssueComponent implements OnInit {
         this.ticket!.assignedTo,
         this.utilityService.getStatus(false),
         this.utilityService.getDateNow(),
-        'Joshua',
+        this.userName,
         formField.resolution
       );
+      console.log(ticket);
     }
     this.httpService.updateTicket(this.ticketId, ticket!).subscribe();
     this.editMode = false;

@@ -21,9 +21,8 @@ export class NavBarComponent implements OnInit {
   unassign: any = null;
   numberOfOpenTickets: number = 0;
   numberOfClosedTickets: number = 0;
-  isLoggedIn: number = 1;
-  userEmail!: string;
-  user?: User;
+  isLoggedIn!: number;
+  userName?: string;
   constructor(
     private httpService: HttpService,
     private utilityService: UtilityService
@@ -31,7 +30,7 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsers();
-    this.getUserEmail();
+    this.getUserName();
     this.refreshData();
     this.checkIfLoggedIn();
     this.getNumberOfOpenTicket();
@@ -39,12 +38,18 @@ export class NavBarComponent implements OnInit {
   }
 
   private checkIfLoggedIn() {
+    //check upon login
     this.utilityService.isLoggedIn.subscribe((res) => {
       this.isLoggedIn = res;
     });
+    //check after viewing ticket
+    this.isLoggedIn = Number(localStorage.getItem('isLoggedIn'));
+
+    console.log(this.isLoggedIn);
   }
   private refreshData() {
     this.httpService.refresh$.subscribe(() => {
+      this.getUserName();
       this.getUsers();
       this.getNumberOfOpenTicket();
       this.getNumberOfClosedTicket();
@@ -53,10 +58,11 @@ export class NavBarComponent implements OnInit {
   private getUsers() {
     this.httpService.getUsers().subscribe((res) => (this.users = res));
   }
-  private getUserEmail() {
-    this.utilityService.userEmail.subscribe((res) => (this.userEmail = res));
+  private getUserName() {
+    this.utilityService.loggedUser.subscribe(
+      (res) => (this.userName = res.firstName + ' ' + res.lastName)
+    );
   }
-
   private getNumberOfOpenTicket() {
     this.httpService
       .getOpenTickets()
@@ -69,6 +75,9 @@ export class NavBarComponent implements OnInit {
   }
   logOut() {
     this.utilityService.isLoggedIn.next(0);
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('currentUserEmail');
+    this.userName = '';
   }
   createTicketNumber() {
     return (this.ticketNumber = (
@@ -86,7 +95,7 @@ export class NavBarComponent implements OnInit {
       subject.charAt(0).toUpperCase() + subject.slice(1),
       formField.description,
       this.dateNow,
-      'Joshua',
+      this.userName!,
       formField.assignedto == null ? 'Unassign' : formField.assignedto,
       'Open'
     );

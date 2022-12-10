@@ -5,6 +5,7 @@ import { ClosedIssuesComponent } from './components/main/closed-issues/closed-is
 import { MainComponent } from './components/main/main.component';
 import { OpenIssuesComponent } from './components/main/open-issues/open-issues.component';
 import { ViewIssueComponent } from './components/main/open-issues/view-issue/view-issue.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { RouteGuard } from './services/route.guard';
 
 const routes: Routes = [
@@ -32,6 +33,7 @@ const routes: Routes = [
     component: ViewIssueComponent,
     canActivate: [RouteGuard],
   },
+  { path: '**', component: PageNotFoundComponent },
 ];
 
 @NgModule({

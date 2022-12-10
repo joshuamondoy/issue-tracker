@@ -13,6 +13,7 @@ import { ClosedIssuesComponent } from './components/main/closed-issues/closed-is
 import { ViewIssueComponent } from './components/main/open-issues/view-issue/view-issue.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthComponent } from './components/main/auth/auth.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { AuthComponent } from './components/main/auth/auth.component';
     ClosedIssuesComponent,
     ViewIssueComponent,
     AuthComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

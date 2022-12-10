@@ -24,7 +24,7 @@ export class RouteGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    this.utilityService.isLoggedIn.subscribe((res) => (this.isLoggedIn = res));
+    this.isLoggedIn = Number(localStorage.getItem('isLoggedIn'));
     if (!this.isLoggedIn) {
       this.router.navigate(['/issues/home']);
     }
