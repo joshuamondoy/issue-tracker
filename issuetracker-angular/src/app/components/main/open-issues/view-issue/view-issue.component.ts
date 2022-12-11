@@ -111,7 +111,6 @@ export class ViewIssueComponent implements OnInit {
         this.userName,
         formField.resolution
       );
-      console.log(ticket);
     }
     this.httpService.updateTicket(this.ticketId, ticket!).subscribe();
     this.editMode = false;

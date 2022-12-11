@@ -16,6 +16,7 @@ export class ClosedIssuesComponent implements OnInit {
   tickets!: Ticket[];
   reopenedTicket!: Ticket;
   numberOfTickets: number = 0;
+  userName!: string;
   constructor(
     private httpService: HttpService,
     private utilityService: UtilityService
@@ -23,6 +24,7 @@ export class ClosedIssuesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTickets();
+    this.getUserName();
     this.httpService.refresh$.subscribe(() => {
       this.getTickets();
     });
@@ -33,7 +35,9 @@ export class ClosedIssuesComponent implements OnInit {
       this.numberOfTickets = res.length;
     });
   }
-
+  private getUserName() {
+    this.userName = localStorage.getItem('currentUser')!;
+  }
   deleteTicket(id: number) {
     this.httpService.deleteTicket(id).subscribe();
   }
@@ -45,10 +49,12 @@ export class ClosedIssuesComponent implements OnInit {
         res.subject,
         res.description,
         this.utilityService.getDateNow(),
-        'Joshua',
+        this.userName!,
         res.assignedTo,
         this.utilityService.getStatus(true)
       );
+      console.log(reopenedTicket);
+
       this.httpService.updateTicket(res.ticketId, reopenedTicket).subscribe();
     });
   }
