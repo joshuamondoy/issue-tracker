@@ -21,7 +21,7 @@ export class NavBarComponent implements OnInit {
   unassign: any = null;
   numberOfOpenTickets: number = 0;
   numberOfClosedTickets: number = 0;
-  isLoggedIn!: number;
+  isLoggedIn: number = 0;
   userName?: string;
   constructor(
     private httpService: HttpService,
