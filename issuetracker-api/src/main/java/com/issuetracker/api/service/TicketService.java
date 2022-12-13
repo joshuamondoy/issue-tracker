@@ -16,6 +16,12 @@ public class TicketService {
 	@Autowired
 	private TicketRepository ticketRepository;
 	
+	public List<Ticket> searchTicket(String query) {
+		List<Ticket> tickets = ticketRepository.searchTickets(query);
+		return tickets;
+		
+	}
+	
 	public List<Ticket> getTickets() {
 		return ticketRepository.findAll();
 	}

@@ -7,8 +7,9 @@
             <h5 class="me-auto">
               {{ ticket?.ticketNumber }}
             </h5>
+
             <button
-              [disabled]="editMode"
+              [disabled]="editMode && isResolved"
               *ngIf="!closeMode"
               (click)="toggleClose()"
               class="btn btn-success btn-sm"
@@ -16,6 +17,7 @@
             >
               <fa-icon [icon]="faCheckCircle"></fa-icon> Resolve ticket
             </button>
+
             <button
               [disabled]="!formValues.form.valid"
               *ngIf="closeMode"

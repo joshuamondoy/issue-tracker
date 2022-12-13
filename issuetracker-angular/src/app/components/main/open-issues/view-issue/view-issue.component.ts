@@ -30,6 +30,7 @@ export class ViewIssueComponent implements OnInit {
   closeMode: boolean = false;
   userName?: string;
   userEmail!: string;
+  isResolved: boolean = true;
   constructor(
     private httpService: HttpService,
     private activatedRoute: ActivatedRoute,
@@ -111,6 +112,7 @@ export class ViewIssueComponent implements OnInit {
         this.userName,
         formField.resolution
       );
+      this.isResolved = false;
     }
     this.httpService.updateTicket(this.ticketId, ticket!).subscribe();
     this.editMode = false;
