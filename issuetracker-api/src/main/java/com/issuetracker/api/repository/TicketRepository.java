@@ -13,9 +13,9 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
 
 	List<Ticket> findByAssignedTo(String name);
 
-	@Query("SELECT t FROM Ticket t WHERE " + 
-	"t.ticketNumber LIKE CONCAT('%',:query, '%')" + 
-	"t.ticketNumber LIKE CONCAT('%',:query, '%')")
+	@Query("SELECT t FROM Ticket t WHERE " + "t.ticketNumber LIKE CONCAT('%', :query, '%') OR "
+			+ "t.subject LIKE CONCAT('%', :query, '%') OR " + "t.openedBy LIKE CONCAT('%', :query, '%') OR "
+			+ "t.assignedTo LIKE CONCAT('%', :query, '%')")
 	List<Ticket> searchTickets(String query);
 
 }
