@@ -10,6 +10,7 @@ import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons';
 import { faCancel } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { UtilityService } from 'src/app/services/utility.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-view-issue',

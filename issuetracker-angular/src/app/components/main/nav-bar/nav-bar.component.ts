@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { Ticket } from 'src/app/models/ticket.model';
 import { User } from 'src/app/models/user.model';
@@ -25,7 +26,8 @@ export class NavBarComponent implements OnInit {
   userName?: string;
   constructor(
     private httpService: HttpService,
-    private utilityService: UtilityService
+    private utilityService: UtilityService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -44,8 +46,6 @@ export class NavBarComponent implements OnInit {
     });
     //check after viewing ticket
     this.isLoggedIn = Number(localStorage.getItem('isLoggedIn'));
-
-    console.log(this.isLoggedIn);
   }
   private refreshData() {
     this.httpService.refresh$.subscribe(() => {
@@ -103,5 +103,12 @@ export class NavBarComponent implements OnInit {
     this.httpService.createTicket(newIssue).subscribe();
     alert('Issue added!');
     this.ticketForm.reset();
+  }
+
+  onSearch(formField: NgForm) {
+    this.httpService
+      .searchTicket(formField.value.searchItem)
+      .subscribe((res) => this.utilityService.searchedTicket.next(res));
+    this.router.navigate(['issues/search-ticket']);
   }
 }

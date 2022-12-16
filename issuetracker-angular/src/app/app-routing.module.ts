@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './components/main/auth/auth.component';
 import { ClosedIssuesComponent } from './components/main/closed-issues/closed-issues.component';
 import { MainComponent } from './components/main/main.component';
+import { SearchItemsComponent } from './components/main/nav-bar/search-items/search-items.component';
 import { OpenIssuesComponent } from './components/main/open-issues/open-issues.component';
 import { ViewIssueComponent } from './components/main/open-issues/view-issue/view-issue.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -25,11 +26,16 @@ const routes: Routes = [
         component: ClosedIssuesComponent,
         canActivate: [RouteGuard],
       },
+      {
+        path: 'search-ticket',
+        component: SearchItemsComponent,
+        canActivate: [RouteGuard],
+      },
     ],
   },
 
   {
-    path: 'open-issue/:id',
+    path: 'view-issue/:id',
     component: ViewIssueComponent,
     canActivate: [RouteGuard],
   },

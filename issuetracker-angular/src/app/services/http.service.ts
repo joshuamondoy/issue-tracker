@@ -48,6 +48,9 @@ export class HttpService {
       })
     );
   }
+  searchTicket(query: string) {
+    return this.httpClient.get<Ticket[]>(`${this.url}/search?query=${query}`);
+  }
   addUser(user: User) {
     return this.httpClient.post(`${this.url}/add-user`, user).pipe(
       tap(() => {

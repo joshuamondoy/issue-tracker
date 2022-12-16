@@ -14,6 +14,7 @@ import { ViewIssueComponent } from './components/main/open-issues/view-issue/vie
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AuthComponent } from './components/main/auth/auth.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { SearchItemsComponent } from './components/main/nav-bar/search-items/search-items.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     ViewIssueComponent,
     AuthComponent,
     PageNotFoundComponent,
+    SearchItemsComponent,
   ],
   imports: [
     BrowserModule,

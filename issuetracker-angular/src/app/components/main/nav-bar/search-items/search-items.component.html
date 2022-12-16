@@ -1,0 +1,43 @@
+<div class="container-fluid">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Ticket number</th>
+        <th>Subject</th>
+        <th>Description</th>
+        <th>Date created</th>
+        <th>Opened by</th>
+        <th>Assigned to</th>
+        <th>Status</th>
+        <th>Date closed</th>
+        <th>Closed by</th>
+        <th>Resolution</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ticket of searchedTicket">
+        <td>{{ ticket.ticketNumber }}</td>
+        <td>{{ ticket.subject }}</td>
+        <td>{{ ticket.description }}</td>
+        <td>{{ ticket.dateCreated }}</td>
+        <td>{{ ticket.openedBy }}</td>
+        <td>{{ ticket.assignedTo }}</td>
+        <td>{{ ticket.status }}</td>
+        <td>{{ ticket.dateClosed }}</td>
+        <td>{{ ticket.closedBy }}</td>
+        <td>{{ ticket.resolution }}</td>
+        <td>
+          <div class="d-flex">
+            <a class="link" routerLink="/view-issue/{{ ticket.ticketId }}"
+              >View</a
+            >
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-center mt-5">
+    <h5 *ngIf="searchResult == 0" class="text-muted">No ticket found</h5>
+  </div>
+</div>
