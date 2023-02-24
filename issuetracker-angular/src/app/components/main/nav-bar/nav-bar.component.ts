@@ -88,6 +88,7 @@ export class NavBarComponent implements OnInit {
 
   onSubmit(formFields: NgForm) {
     this.createTicketNumber();
+
     const formField = formFields.value;
     const subject = formField.subject;
     const newIssue = new Ticket(
